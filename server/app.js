@@ -11,12 +11,15 @@ var mongoose = require('mongoose');
 var index = require('./routes/index');
 var test = require('./routes/test');
 var sayHello = require('./module/testScheduler');
+
 //var manager = require('/routes/manager');
 
 // App Set //
 app.set("port", (process.env.PORT || 5000));
 
+
 console.log(sayHello());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({expanded: true}));
 
@@ -36,7 +39,7 @@ app.use(bodyParser.urlencoded({expanded: true}));
 //app.use('/register', register);
 //app.use('/user', user);
 
-
+//app.use('/scheduleUpdate', scheduleUpdate);
 app.use('/test', test);
 app.use('/', index);
 
