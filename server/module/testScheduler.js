@@ -8,5 +8,5 @@ var sayHello = function(){
     //http.get('/scheduleUpdate')
 };
 
-//sayHello();
+sayHello();
 module.exports = sayHello;
