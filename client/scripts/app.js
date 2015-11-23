@@ -2,6 +2,12 @@ var myApp = angular.module("myApp", []);
 
 
 myApp.controller("managerLogin", ["$scope", "$http", function($scope, $http){
+
+    $scope.testSchedule = function() {
+        $http.get('/test').then(function(response){
+            console.log(response);
+        })
+    };
     //$scope.manager = {};
     //
     //$scope.CLIENT_ID = '1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com';
