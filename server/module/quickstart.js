@@ -5,10 +5,11 @@ var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 
-var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
+var SCOPES = ['https://www.googleapis.com/auth/calendar'];
 var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'calendar-nodejs-quickstart.json';
+var authenticate = require('./authenticate.js');
 
 // Load client secrets from a local file.
 fs.readFile(path.join(__dirname,'client_secret.json'), function processClientSecrets(err, content) {
@@ -18,6 +19,7 @@ fs.readFile(path.join(__dirname,'client_secret.json'), function processClientSec
     }
     // Authorize a client with the loaded credentials, then call the
     // Google Calendar API.
+    //authorize(JSON.parse(content), listEvents);
     authorize(JSON.parse(content), listEvents);
 });
 
@@ -94,17 +96,28 @@ function storeToken(token) {
     fs.writeFile(TOKEN_PATH, JSON.stringify(token));
     console.log('Token stored to ' + TOKEN_PATH);
 }
-
 /**
  * Lists the next 10 events on the user's primary calendar.
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
+//function updateEvents(auth) {
+//    var calendar = google.calendar('v3');
+//    calendar.events.update({
+//        auth: auth,
+//        calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
+//        eventId: '4mtu1klg6680t5eulgall1p4hs',
+//        sendNotifications: true,
+//        startTime: 2015-11-24T22:00:00Z,
+//        endTime:
+//
+//    })
+//}
 function listEvents(auth) {
     var calendar = google.calendar('v3');
     calendar.events.list({
         auth: auth,
-        calendarId: 'primary',
+        calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
         timeMin: (new Date()).toISOString(),
         maxResults: 10,
         singleEvents: true,
@@ -122,7 +135,9 @@ function listEvents(auth) {
             for (var i = 0; i < events.length; i++) {
                 var event = events[i];
                 var start = event.start.dateTime || event.start.date;
-                console.log('%s - %s', start, event.summary);
+                var id = event.id;
+                var attendees = event.attendees;
+                console.log(id, '%s - %s', start, event.summary, attendees);
             }
         }
     });
