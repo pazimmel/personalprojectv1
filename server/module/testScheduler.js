@@ -29,6 +29,7 @@
         }
         // Authorize a client with the loaded credentials, then call the
         // Google Calendar API.
+        console.log("in the path.join");
         authorize(JSON.parse(content), updateEvents);
         //authorize(JSON.parse(content), listEvents);
     });
@@ -41,6 +42,7 @@
      * @param {function} callback The callback to call with the authorized client.
      */
     function authorize(credentials, callback) {
+        console.log("in the authorize");
         var clientSecret = credentials.installed.client_secret;
         var clientId = credentials.installed.client_id;
         var redirectUrl = credentials.installed.redirect_uris[0];
@@ -67,6 +69,7 @@
      *     client.
      */
     function getNewToken(oauth2Client, callback) {
+        console.log("in the get new token");
         var authUrl = oauth2Client.generateAuthUrl({
             access_type: 'offline',
             scope: SCOPES
@@ -96,6 +99,7 @@
      * @param {Object} token The token to store to disk.
      */
     function storeToken(token) {
+        console.log("in the store token");
         try {
             fs.mkdirSync(TOKEN_DIR);
         } catch (err) {
@@ -112,6 +116,7 @@
      * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
      */
     function updateEvents(auth) {
+        console.log("in teh update events");
         var calendar = google.calendar('v3');
         calendar.events.update({
             auth: auth,
