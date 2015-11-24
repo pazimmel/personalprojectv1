@@ -3,11 +3,34 @@ var myApp = angular.module("myApp", []);
 
 myApp.controller("managerLogin", ["$scope", "$http", function($scope, $http){
 
-    $scope.testSchedule = function() {
-        $http.get('/test').then(function(response){
-            console.log(response);
-        })
+    $scope.googleLogin = function(){
+        console.log("click");
+        auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then($scope.signInCallback);
     };
+
+    $scope.signInCallback = function(authResult){
+        console.log(authResult['code']);
+        if (authResult['code']){
+
+            $http({
+                url: '/login',
+                method: "POST",
+                params: {code: authResult['code']}
+            }).then(
+                function(response){
+                    console.log(response);
+                }
+            )
+        } else {
+            console.log("there was an error");
+        }
+    };
+
+    //$scope.testSchedule = function() {
+    //    $http.get('/test').then(function(response){
+    //        console.log(response);
+    //    })
+    //};
     //$scope.manager = {};
     //
     //$scope.CLIENT_ID = '1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com';
@@ -65,7 +88,7 @@ myApp.controller("managerLogin", ["$scope", "$http", function($scope, $http){
     //    gapi.client.load('calendar', 'v3', listUpcomingEvents);
     //    console.log(listUpcomingEvents);
     //}
-    $scope.userLogin = function(managerObject){
-        console.log(managerObject);
-    };
+    //$scope.userLogin = function(managerObject){
+    //    console.log(managerObject);
+    //};
 }]);

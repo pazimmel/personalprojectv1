@@ -9,16 +9,15 @@ var mongoose = require('mongoose');
 //var register = require('./routes/register');
 //var user = require('./routes/user');
 var index = require('./routes/index');
-var test = require('./routes/test');
-var sayHello = require('./module/testScheduler');
+var login = require("./routes/login");
 
-//var manager = require('/routes/manager');
+
+
 
 // App Set //
 app.set("port", (process.env.PORT || 5000));
 
 
-console.log(sayHello());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({expanded: true}));
@@ -40,7 +39,7 @@ app.use(bodyParser.urlencoded({expanded: true}));
 //app.use('/user', user);
 
 //app.use('/scheduleUpdate', scheduleUpdate);
-app.use('/test', test);
+app.use('/login', login.router);
 app.use('/', index);
 
 // Mongo Connection //
