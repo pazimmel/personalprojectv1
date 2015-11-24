@@ -19,10 +19,9 @@ fs.readFile(path.join(__dirname,'client_secret.json'), function processClientSec
     }
     // Authorize a client with the loaded credentials, then call the
     // Google Calendar API.
+    authorize(JSON.parse(content), updateEvents);
     //authorize(JSON.parse(content), listEvents);
-    authorize(JSON.parse(content), listEvents);
 });
-
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.
@@ -101,44 +100,63 @@ function storeToken(token) {
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-//function updateEvents(auth) {
-//    var calendar = google.calendar('v3');
-//    calendar.events.update({
-//        auth: auth,
-//        calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
-//        eventId: '4mtu1klg6680t5eulgall1p4hs',
-//        sendNotifications: true,
-//        startTime: 2015-11-24T22:00:00Z,
-//        endTime:
-//
-//    })
-//}
-function listEvents(auth) {
+function updateEvents(auth) {
     var calendar = google.calendar('v3');
-    calendar.events.list({
+    calendar.events.update({
         auth: auth,
         calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
-        timeMin: (new Date()).toISOString(),
-        maxResults: 10,
-        singleEvents: true,
-        orderBy: 'startTime'
-    }, function(err, response) {
+        eventId: '4mtu1klg6680t5eulgall1p4hs',
+        sendNotifications: true,
+        resource: {
+            start: {
+                dateTime: '2015-11-24T22:00:00Z'
+            },
+            end: {
+                dateTime:'2015-11-24T23:00:00Z'
+            },
+            summary: "updated 1",
+            attendees: [
+                {email: 'pazimmel@gmail.com'},
+                {email: 'stephbealee@gmail.com'}
+            ],
+            description: "I think this will work(check)"
+        }
+    }, function(err, response){
         if (err) {
             console.log('The API returned an error: ' + err);
             return;
-        }
-        var events = response.items;
-        if (events.length == 0) {
-            console.log('No upcoming events found.');
-        } else {
-            console.log('Upcoming 10 events:');
-            for (var i = 0; i < events.length; i++) {
-                var event = events[i];
-                var start = event.start.dateTime || event.start.date;
-                var id = event.id;
-                var attendees = event.attendees;
-                console.log(id, '%s - %s', start, event.summary, attendees);
-            }
+    } else {
+        console.log(response);
         }
     });
 }
+//function listEvents(auth) {
+//    var calendar = google.calendar('v3');
+//    calendar.events.list({
+//        auth: auth,
+//        calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
+//        timeMin: (new Date()).toISOString(),
+//        maxResults: 10,
+//        singleEvents: true,
+//        orderBy: 'startTime'
+//    }, function(err, response) {
+//        if (err) {
+//            console.log('The API returned an error: ' + err);
+//            return;
+//        }
+//        var events = response.items;
+//        if (events.length == 0) {
+//            console.log('No upcoming events found.');
+//        } else {
+//            console.log('Upcoming 10 events:');
+//            for (var i = 0; i < events.length; i++) {
+//                var event = events[i];
+//                var start = event.start.dateTime || event.start.date;
+//                var id = event.id;
+//                var personName = event.attendees;
+//                //var email = event.attendees.email;
+//                console.log(id, '%s - %s', start, event.summary, personName);
+//            }
+//        }
+//    });
+//}
