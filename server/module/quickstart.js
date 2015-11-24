@@ -19,7 +19,7 @@ fs.readFile(path.join(__dirname,'client_secret.json'), function processClientSec
     }
     // Authorize a client with the loaded credentials, then call the
     // Google Calendar API.
-    authorize(JSON.parse(content), updateEvents);
+    authorize(JSON.parse(content), listEvents);
     //authorize(JSON.parse(content), listEvents);
 });
 /**
