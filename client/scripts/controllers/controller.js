@@ -26,8 +26,9 @@ myApp.controller("loginController", ["$scope", "$http", function($scope, $http){
 myApp.controller("attendanceController", ["$scope", "$http", function($scope, $http){
 
 }]);
-myApp.controller("inputTeamController", ["$scope", "$http", function($scope, $http){
-
+myApp.controller("inputTeamController", ["$scope", "ManagerService", function($scope, ManagerService){
+    $scope.newPlayer = {};
+    $scope.playerArray = [];
 }]);
 myApp.controller("inputScheduleController", ["$scope", "$http", function($scope, $http){
 
@@ -35,6 +36,7 @@ myApp.controller("inputScheduleController", ["$scope", "$http", function($scope,
 myApp.controller("inputEmailController", ["$scope", "$http", function($scope, $http){
 
 }]);
+
     //$scope.testSchedule = function() {
     //    $http.get('/test').then(function(response){
     //        console.log(response);

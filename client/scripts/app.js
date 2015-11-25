@@ -25,3 +25,6 @@ myApp.config(['$routeProvider', function($routeProvider){
         .otherwise('/login');
 }]);
 
+myApp.service("ManagerService", ["$http", function($http){
+
+}]);
