@@ -26,10 +26,13 @@ myApp.controller("loginController", ["$scope", "$http", function($scope, $http){
 myApp.controller("attendanceController", ["$scope", "$http", function($scope, $http){
 
 }]);
-myApp.controller("inputController", ["$scope", "$http", function($scope, $http){
+myApp.controller("inputTeamController", ["$scope", "$http", function($scope, $http){
 
 }]);
-myApp.controller("emailController", ["$scope", "$http", function($scope, $http){
+myApp.controller("inputScheduleController", ["$scope", "$http", function($scope, $http){
+
+}]);
+myApp.controller("inputEmailController", ["$scope", "$http", function($scope, $http){
 
 }]);
     //$scope.testSchedule = function() {

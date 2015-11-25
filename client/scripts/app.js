@@ -10,13 +10,17 @@ myApp.config(['$routeProvider', function($routeProvider){
             templateUrl: "assets/views/routes/playerAttendance.html",
             controller: "attendanceController"
         })
-        .when('/inputInfo', {
-            templateUrl: "assets/views/routes/inputInfo.html",
-            controller: "inputController"
+        .when('/inputTeam', {
+            templateUrl: "assets/views/routes/inputTeam.html",
+            controller: "inputTeamController"
         })
-        .when('/manageEmail', {
-            templateUrl: "assets/views/routes/manageEmail.html",
-            controller: "emailController"
+        .when('/inputSchedule', {
+            templateUrl: "assets/views/routes/inputSchedule.html",
+            controller: "inputScheduleController"
+        })
+        .when('/inputEmailSettings', {
+            templateUrl: "assets/views/routes/inputEmailSettings.html",
+            controller: "inputEmailSettings"
         })
         .otherwise('/login');
 }]);
