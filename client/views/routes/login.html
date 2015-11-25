@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Team Manager version 1.1</title>
+    <!-- Styles-->
+    <link rel="stylesheet" href="/assets/styles/style.css">
+
+    <!-- Scripts-->
+
+    <!--<script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>-->
+    <script type="text/javascript" src="/vendors/angular.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular-route.min.js"></script>
+    <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
+    <script type="text/javascript" src="/assets/scripts/controllers/controller.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
+    </script>
+    <script>
+        function start() {
+            gapi.load('auth2', function() {
+                auth2 = gapi.auth2.init({
+                    client_id: '1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com',
+                    // Scopes to request in addition to 'profile' and 'email'
+                    scope: 'https://www.googleapis.com/auth/calendar'
+                });
+            });
+        }
+    </script>
+
+</head>
+<body>
+<div id = "login" ng-controller="loginController">
+    <form>
+        <input type = "button" value ="Sign in with Google" ng-click="googleLogin()">
+    </form>
+</div>
+
+
+</body>
+</html>

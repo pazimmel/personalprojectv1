@@ -9,56 +9,14 @@
     <!-- Scripts-->
 
     <!--<script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>-->
-    <script type="text/javascript" src="/vendors/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular-route.min.js"></script>
     <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
-    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
-    </script>
-    <script>
-        function start() {
-            gapi.load('auth2', function() {
-                auth2 = gapi.auth2.init({
-                    client_id: '1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com',
-                    // Scopes to request in addition to 'profile' and 'email'
-                    scope: 'https://www.googleapis.com/auth/calendar'
-                });
-            });
-        }
-    </script>
+    <script type="text/javascript" src="/assets/scripts/controllers/controller.min.js"></script>
+
 
 </head>
 <body>
-    <div id = "login" ng-controller="managerLogin">
-        <form>
-            <input type = "button" value ="Sign in with Google" ng-click="googleLogin()">
-        </form>
-    </div>
-    <!--<div id="authorize-div" style="display: none">-->
-        <!--<span>Authorize access to Google Calendar API</span>-->
-        <!--&lt;!&ndash;Button for the user to click to initiate auth sequence &ndash;&gt;-->
-        <!--<button id="authorize-button" onclick="handleAuthClick(event)">-->
-            <!--Authorize-->
-        <!--</button>-->
-    <!--</div>-->
-<!--<pre id="output"></pre>-->
-    <!--<div ng-controller="managerLogin">-->
-        <!--<form id = "login">-->
-            <!--<div class = "username">-->
-                <!--<label for="username">Username:</label>-->
-                <!--<input type="text" name="username" id="username" ng-model = "manager.username"/>-->
-            <!--</div>-->
-            <!--<div class = "password">-->
-                <!--<label for="password">Password:</label>-->
-                <!--<input type="password" name="password" id="password" ng-model = "manager.password"/>-->
-            <!--</div>-->
-            <!--<div>-->
-                <!--<input type="submit" value="Log In" ng-click = "userLogin(manager)"/>-->
-            <!--</div>-->
-        <!--</form>-->
-        <!--<div class = "calendar-display">-->
-
-        <!--</div>-->
-    <!--</div>-->
-
-
+    <main ng-view></main>
 </body>
 </html>
