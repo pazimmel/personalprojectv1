@@ -26,29 +26,29 @@ myApp.controller("loginController", ["$scope", "$http", function($scope, $http){
 myApp.controller("attendanceController", ["$scope", "$http", function($scope, $http){
 
 }]);
-myApp.controller("inputTeamController", ["$scope", function($scope){
+myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", function($scope, $http, ManagerService){
     $scope.newPlayer = {};
-    $scope.playerArray = [ {
-        "firstName": "Cox",
-        "lastName": "Carney",
-        "company": "Enormo",
-        "employed": true
-    },
-        {
-            "firstName": "Lorraine",
-            "lastName": "Wise",
-            "company": "Comveyer",
-            "employed": false
-        },
-        {
-            "firstName": "Nancy",
-            "lastName": "Waters",
-            "company": "Fuelton",
-            "employed": false
-        }];
-    $scope.submitPlayer = function(person){
-        console.log("hi");
-    }
+    $scope.playerArray = [];
+    $scope.managerService = ManagerService;
+
+    $scope.inputPlayer = function(newPlayer){
+        console.log(newPlayer);
+
+        $http.post('/team', newPlayer).then(function(response){
+            console.log(response);
+            //$scope.player = response;
+        });
+
+    };
+
+    //if($scope.managerService.displayTeam() === undefined){
+    //    $scope.managerService.retrieveTeam().then(
+    //        $scope.playerArray = $scope.managerService.displayTeam()
+    //    );
+    //} else {
+    //    $scope.playerArray = $scope.managerService.displayTeam();
+    //}
+
 }]);
 myApp.controller("inputScheduleController", ["$scope", "$http", function($scope, $http){
 

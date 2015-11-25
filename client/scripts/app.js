@@ -25,6 +25,27 @@ myApp.config(['$routeProvider', function($routeProvider){
         .otherwise('/login');
 }]);
 
-//myApp.service("ManagerService", ["$http", function($http){
-//
-//}]);
+myApp.service("ManagerService", ["$http", function($http){
+    var player, playerArray = undefined;
+
+    //var retrieveTeam = function(){
+    //    var teamPromise =
+    //        $http({
+    //            url: '/team',
+    //            type: 'GET'
+    //        }).then(function(response){
+    //            playerArray = response.data;
+    //        });
+    //    return teamPromise;
+    //};
+
+    var teamApi = {
+
+        //retrieveTeam: function(){
+        //    retrieveTeam();
+        //},
+        //displayTeam: function(){
+        //    return playerArray;
+        //}
+    }
+}]);

@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 //var user = require('./routes/user');
 var index = require('./routes/index');
 var login = require("./routes/login");
+var team = require('./routes/team');
 
 
 
@@ -40,7 +41,9 @@ app.use(bodyParser.urlencoded({expanded: true}));
 
 //app.use('/scheduleUpdate', scheduleUpdate);
 
+
 app.use('/login', login);
+app.use('/team', team);
 app.use('/', index);
 
 // Mongo Connection //
