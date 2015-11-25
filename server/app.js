@@ -39,7 +39,8 @@ app.use(bodyParser.urlencoded({expanded: true}));
 //app.use('/user', user);
 
 //app.use('/scheduleUpdate', scheduleUpdate);
-app.use('/login', login.router);
+
+app.use('/login', login);
 app.use('/', index);
 
 // Mongo Connection //

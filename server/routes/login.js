@@ -2,22 +2,21 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var bodyParser = require('body-parser');
-var authObject = {};
+var authenticate = require('../module/authenticate');
+var google = require('googleapis');
+var OAuth2 = google.auth.OAuth2;
 
-var exportFunction = function(authObject){
-   console.log("it's in loginCode ", authObject);
-    return authObject;
-};
+
 
 router.post('/', function(req, res){
-    var auth = req.query;
-    console.log("object from the server, ",auth);
-    authObject = exportFunction(auth);
+    var auth = req.query.code;
+    var authTokens = authenticate(auth);
+
     res.send("we got it!");
 });
 
+console.log(authTokens);
 
 
 
-module.exports.authObject = authObject;
-module.exports.router = router;
+module.exports = router;
