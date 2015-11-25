@@ -26,26 +26,24 @@ myApp.config(['$routeProvider', function($routeProvider){
 }]);
 
 myApp.service("ManagerService", ["$http", function($http){
-    var player, playerArray = undefined;
+    var playerArray = undefined;
 
-    //var retrieveTeam = function(){
-    //    var teamPromise =
-    //        $http({
-    //            url: '/team',
-    //            type: 'GET'
-    //        }).then(function(response){
-    //            playerArray = response.data;
-    //        });
-    //    return teamPromise;
-    //};
+    var getTeam = function(){
+        var promise = $http.get('/team').then(function(response){
+                console.log(response.data);
+                playerArray = response.data;
+            });
+        return promise;
+    };
 
     var teamApi = {
 
-        //retrieveTeam: function(){
-        //    retrieveTeam();
-        //},
-        //displayTeam: function(){
-        //    return playerArray;
-        //}
-    }
+        retrieveTeam: function(){
+            return getTeam();
+        },
+        displayTeam: function(){
+            return playerArray;
+        }
+    };
+    return teamApi;
 }]);

@@ -29,6 +29,7 @@ myApp.controller("attendanceController", ["$scope", "$http", function($scope, $h
 myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", function($scope, $http, ManagerService){
     $scope.newPlayer = {};
     $scope.playerArray = [];
+    $scope.gridOptions = {};
     $scope.managerService = ManagerService;
 
     $scope.inputPlayer = function(newPlayer){
@@ -40,14 +41,16 @@ myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", fu
         });
 
     };
+    $scope.gridOptions = {
 
-    //if($scope.managerService.displayTeam() === undefined){
-    //    $scope.managerService.retrieveTeam().then(
-    //        $scope.playerArray = $scope.managerService.displayTeam()
-    //    );
-    //} else {
-    //    $scope.playerArray = $scope.managerService.displayTeam();
-    //}
+    };
+    if($scope.managerService.displayTeam() === undefined){
+        $scope.managerService.retrieveTeam().then(
+            $scope.playerArray = $scope.managerService.displayTeam()
+        );
+    } else {
+        $scope.playerArray = $scope.managerService.displayTeam();
+    }
 
 }]);
 myApp.controller("inputScheduleController", ["$scope", "$http", function($scope, $http){
