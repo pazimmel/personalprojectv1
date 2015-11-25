@@ -1,5 +1,7 @@
 //
 var google = require('googleapis');
+var calendar = google.calendar('v3');
+
 var OAuth2 = google.auth.OAuth2;
 var authTokens;
 var authenticate = function(code) {
@@ -23,12 +25,74 @@ var authenticate = function(code) {
 
             oauth2Client.setCredentials({
                 access_token: tokens.access_token,
-                refresh_token: tokens.refresh_token
+                refresh_token: tokens.refresh_token,
+                id_token: tokens.id
             });
             authTokens = (oauth2Client.credentials);
             console.log(authTokens);
+            listEvents(oauth2Client);
+            updateEvents(oauth2Client);
         }
     });
+
+        function listEvents(auth) {
+            calendar.events.list({
+                auth:auth,
+                calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
+                timeMin: (new Date()).toISOString(),
+                maxResults: 10,
+                singleEvents: true,
+                orderBy: 'startTime'
+            }, function (err, response) {
+                if (err) {
+                    console.log('The API returned an error: ' + err);
+                    return;
+                }
+                var events = response.items;
+                if (events.length == 0) {
+                    console.log('No upcoming events found.');
+                } else {
+                    console.log('Upcoming 10 events:');
+                    for (var i = 0; i < events.length; i++) {
+                        var event = events[i];
+                        var start = event.start.dateTime || event.start.date;
+                        var id = event.id;
+                        var attendees = event.attendees;
+                        console.log(id, '%s - %s', start, event.summary, attendees);
+                    }
+                }
+            });
+        }
+    function updateEvents(auth) {
+        var calendar = google.calendar('v3');
+        calendar.events.update({
+            auth: auth,
+            calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
+            eventId: 'jbmtsjtcjanbienrmhpbhmlnsk',
+            sendNotifications: true,
+            resource: {
+                start: {
+                    dateTime: '2015-11-25T22:00:00Z'
+                },
+                end: {
+                    dateTime:'2015-11-25T23:00:00Z'
+                },
+                summary: "updated on Wednesday",
+                attendees: [
+                    {email: 'pazimmel@gmail.com'},
+                    {email: 'stephbealee@gmail.com'}
+                ],
+                description: "an update"
+            }
+        }, function(err, response){
+            if (err) {
+                console.log('The API returned an error: ' + err);
+                return;
+            } else {
+                console.log(response);
+            }
+        });
+    }
     return authTokens;
 };
 
