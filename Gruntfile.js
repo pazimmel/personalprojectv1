@@ -37,6 +37,15 @@ module.exports = function(grunt){
                 ],
                 "dest": "server/public/vendors/"
             },
+            angularUI: {
+                expand: true,
+                cwd: 'node_modules',
+                src: [
+                    "angular-ui-grid/ui-grid.min.css",
+                    "angular-ui-grid/ui-grid.min.js"
+                ],
+                dest: "server/public/vendors/"
+            },
             html: {
                 expand: true,
                 cwd: 'client/views/',

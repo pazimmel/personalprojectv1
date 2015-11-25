@@ -26,9 +26,29 @@ myApp.controller("loginController", ["$scope", "$http", function($scope, $http){
 myApp.controller("attendanceController", ["$scope", "$http", function($scope, $http){
 
 }]);
-myApp.controller("inputTeamController", ["$scope", "ManagerService", function($scope, ManagerService){
+myApp.controller("inputTeamController", ["$scope", function($scope){
     $scope.newPlayer = {};
-    $scope.playerArray = [];
+    $scope.playerArray = [ {
+        "firstName": "Cox",
+        "lastName": "Carney",
+        "company": "Enormo",
+        "employed": true
+    },
+        {
+            "firstName": "Lorraine",
+            "lastName": "Wise",
+            "company": "Comveyer",
+            "employed": false
+        },
+        {
+            "firstName": "Nancy",
+            "lastName": "Waters",
+            "company": "Fuelton",
+            "employed": false
+        }];
+    $scope.submitPlayer = function(person){
+        console.log("hi");
+    }
 }]);
 myApp.controller("inputScheduleController", ["$scope", "$http", function($scope, $http){
 

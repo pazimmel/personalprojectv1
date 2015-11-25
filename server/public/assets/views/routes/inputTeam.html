@@ -1,26 +1,49 @@
-<html lang="en" ng-app="myApp">
-<head>
-    <meta charset="UTF-8">
+<!--<html lang="en" ng-app="myApp">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
 
-    <title>Team Manager version 1.1 - Manager Page</title>
-    <!-- Styles-->
-    <link rel="stylesheet" href="/assets/styles/style.css">
+    <!--<title>Team Manager version 1.1 - Manager Page</title>-->
+    <!--&lt;!&ndash; Styles&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="/assets/styles/style.css">-->
 
-    <!-- Scripts-->
+    <!--&lt;!&ndash; Scripts&ndash;&gt;-->
 
-    <!--<script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>-->
-    <script type="text/javascript" src="/vendors/angular.min.js"></script>
-    <script type="text/javascript" src="/vendors/angular-route.min.js"></script>
-    <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
-    <script type="text/javascript" src="/assets/scripts/controllers/controller.min.js"></script>
-</head>
-<body>
-<header>
-    <div ng-include="'/assets/views/templates/nav.html'"></div>
-    <div ng-include="'/assets/views/templates/account.html'"></div>
-    <h1>Team Zeta Setup</h1>
-    <div ng-include="'/assets/views/templates/setupNav.html'"></div>
-</header>
+    <!--&lt;!&ndash;<script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>&ndash;&gt;-->
+    <!--<script type="text/javascript" src="/vendors/angular.min.js"></script>-->
+    <!--<script type="text/javascript" src="/vendors/angular-route.min.js"></script>-->
+    <!--<script type="text/javascript" src="/assets/scripts/app.min.js"></script>-->
+    <!--<script type="text/javascript" src="/assets/scripts/controllers/controller.min.js"></script>-->
+<!--</head>-->
 
-</body>
-</html>
+    <header>
+        <div ng-include="'/assets/views/templates/nav.html'"></div>
+        <div ng-include="'/assets/views/templates/account.html'"></div>
+        <h1>Team Zeta Setup</h1>
+        <div ng-include="'/assets/views/templates/setupNav.html'"></div>
+    </header>
+    <div>
+        <form id = "teamInput">
+            <h1>Input Team</h1>
+            <label for = "playerName">New Player</label>
+            <input type = "text" ng-model = "newPlayer.name" id = "playerName" placeholder="Enter player name" required>
+            <label for = "playerEmail">Email</label>
+            <input type = "email" ng-model = "newPlayer.email" id = "playerEmail" placeholder="Enter player email" required>
+            <label for = "playerPhone">Phone Number</label>
+            <input type = "tel" ng-model = "newPlayer.phoneNumber" id = "playerPhone" placeholder="Enter player phone(optional)">
+            <input type="radio" name="sex" value="male" checked>Male
+            <input type="radio" name="sex" value="female">Female
+
+            <input type = "submit" value = "submit" ng-click = "submitPlayer(newPlayer)">
+            <input type = "submit" value = "Roster Complete" ng-click = "">
+        </form>
+        <div class = "roster-display">
+            <h1>Roster</h1>
+            <div class = "roster-grid" ui-grid = "{ data: playerArray}" >
+                <!-- insert a table here-->
+            </div>
+        </div>
+    </div>
+
+
+
+<!--</html>-->
