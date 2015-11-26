@@ -42,15 +42,25 @@ myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", fu
 
     };
     $scope.gridOptions = {
-
+        columnDefs: [
+            {field: "name", name: "Name"},
+            {field: "email", name:"Email"},
+            {field: "type", name:"Type"},
+            {field: "_v", visible: false},
+            {field: "_id", visible: false},
+            {field: "$$hashkey", visible: false}
+        ]
     };
-    if($scope.managerService.displayTeam() === undefined){
-        $scope.managerService.retrieveTeam().then(
-            $scope.playerArray = $scope.managerService.displayTeam()
+    //if($scope.managerService.displayTeam() === undefined){
+        $scope.managerService.retrieveTeam().then(function() {
+                $scope.playerArray = $scope.managerService.displayTeam();
+                $scope.gridOptions.data = $scope.playerArray;
+            }
         );
-    } else {
-        $scope.playerArray = $scope.managerService.displayTeam();
-    }
+   // } else {
+   //     $scope.playerArray = $scope.managerService.displayTeam();
+   //     $scope.gridOptions.data = $scope.playerArray;
+    //}
 
 }]);
 myApp.controller("inputScheduleController", ["$scope", "$http", function($scope, $http){
