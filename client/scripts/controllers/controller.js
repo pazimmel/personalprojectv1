@@ -32,35 +32,47 @@ myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", fu
     $scope.gridOptions = {};
     $scope.managerService = ManagerService;
 
-    $scope.inputPlayer = function(newPlayer){
-        console.log(newPlayer);
-
-        $http.post('/team', newPlayer).then(function(response){
-            console.log(response);
-            //$scope.player = response;
-        });
-
-    };
     $scope.gridOptions = {
         columnDefs: [
             {field: "name", name: "Name"},
             {field: "email", name:"Email"},
             {field: "type", name:"Type"},
+            {name: 'edit', displayName: 'Edit', cellTemplate: '<button id="editBtn" type="button" class="btn-small" ' +
+            'ng-click="grid.appScope.editPlayer(row.entity)" >Edit</button> '},
+            {name: 'delete', displayName: 'Delete', cellTemplate: '<button id="deleteBtn" type="button" ' +
+            'class="btn-small" ng-click="grid.appScope.deletePlayer(row.entity)">Delete</button> '},
             {field: "_v", visible: false},
             {field: "_id", visible: false},
             {field: "$$hashkey", visible: false}
         ]
     };
-    //if($scope.managerService.displayTeam() === undefined){
+
+    $scope.inputPlayer = function(newPlayer){
+        $http.post('/team', newPlayer).then(function(response){
+            console.log(response);
+            $scope.refreshGrid();
+        });
+    };
+
+    $scope.refreshGrid = function(){
         $scope.managerService.retrieveTeam().then(function() {
-                $scope.playerArray = $scope.managerService.displayTeam();
-                $scope.gridOptions.data = $scope.playerArray;
-            }
-        );
-   // } else {
-   //     $scope.playerArray = $scope.managerService.displayTeam();
-   //     $scope.gridOptions.data = $scope.playerArray;
-    //}
+            $scope.playerArray = $scope.managerService.displayTeam();
+            $scope.gridOptions.data = $scope.playerArray;
+        });
+    };
+    $scope.deletePlayer= function(row){
+        console.log(row);
+        $http.post('/team/delete', row).then(function(response){
+            console.log(response);
+            $scope.refreshGrid();
+        });
+    };
+
+    $scope.editPlayer = function(row){
+      console.log(row);
+    };
+
+    $scope.refreshGrid();
 
 }]);
 myApp.controller("inputScheduleController", ["$scope", "$http", function($scope, $http){

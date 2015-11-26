@@ -26,6 +26,15 @@ router.route('/')
     });
 });
 
+router.route('/delete')
+    .post(function(req,res){
+       var playerId = req.body._id;
+        console.log(playerId);
+        Player.findByIdAndRemove(playerId, function(err,data){
+           if (err) return err;
+            res.send(data);
+        });
 
+    });
 
 module.exports = router;
