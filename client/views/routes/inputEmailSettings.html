@@ -1,0 +1,39 @@
+<header>
+    <div ng-include="'/assets/views/templates/nav.html'"></div>
+    <div ng-include="'/assets/views/templates/account.html'"></div>
+    <h1>Team Zeta Setup</h1>
+    <div ng-include="'/assets/views/templates/setupNav.html'"></div>
+</header>
+<div class ="notification-settings">
+    <div class = "team-notification">
+        <h1>Game Reminders</h1>
+        <div class = "first-reminder">
+            <p><span>
+                Send game reminder
+                <select name ="first-reminder" ng-model = 'reminders.team_first' ng-options='number for number in days'></select>
+                days before the game.
+            </span></p>
+        </div>
+
+        <div class = second-reminder>
+            <p><span>
+                Send second game reminder
+                <select name ="first-reminder" ng-model = 'reminders.team_second' ng-options='number for number in days'></select>
+                days before the game.
+            </span></p>
+        </div>
+    </div>
+    <div class = "manager-notifications">
+        <h1>Attendance Reminder</h1>
+        <p><span>
+            Send manager attendance update
+            <select name ="attendance-update" ng-model = "reminders.attendance" ng-options ="number for number in days"></select>
+            days before the game.
+        </span></p>
+    </div>
+    <div class = "submit-buttons">
+        <input type = "submit" value = "submit" ng-click = "inputEmailSettings(reminders)">
+        <input type = "submit" value = "Settings Complete" ng-click = "">
+    </div>
+
+</div>

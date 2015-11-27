@@ -19,6 +19,7 @@ var authenticate = function(code) {
     console.log("before getToken ", code);
     //oauth2.getToken(code,function(err, tokens){
     oauth2Client.getToken(code, function(err, tokens) {
+
         console.log("access token ", tokens.access_token, " refresh token ", tokens.refresh_token);
         // Now tokens contains an access_token and an optional refresh_token. Save them.
         if(!err) {
@@ -26,7 +27,7 @@ var authenticate = function(code) {
             oauth2Client.setCredentials({
                 access_token: tokens.access_token,
                 refresh_token: tokens.refresh_token,
-                id_token: tokens.id
+                id_token: tokens.id_token
             });
             authTokens = (oauth2Client.credentials);
             console.log(authTokens);

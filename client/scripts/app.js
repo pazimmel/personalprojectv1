@@ -14,14 +14,14 @@ myApp.config(['$routeProvider', function($routeProvider){
             templateUrl: "assets/views/routes/inputTeam.html",
             controller: "inputTeamController"
         })
-        //.when('/inputSchedule', {
-        //    templateUrl: "assets/views/routes/inputSchedule.html",
-        //    controller: "inputScheduleController"
-        //})
-        //.when('/inputEmailSettings', {
-        //    templateUrl: "assets/views/routes/inputEmailSettings.html",
-        //    controller: "inputEmailSettings"
-        //})
+        .when('/inputSchedule', {
+            templateUrl: "assets/views/routes/inputSchedule.html",
+            controller: "inputScheduleController"
+        })
+        .when('/inputEmailSettings', {
+            templateUrl: "assets/views/routes/inputEmailSettings.html",
+            controller: "inputEmailSettingsController"
+        })
         .otherwise('/login');
 }]);
 

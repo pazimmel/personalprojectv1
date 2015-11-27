@@ -15,6 +15,7 @@ myApp.controller("loginController", ["$scope", "$http", function($scope, $http){
                 params: {code: authResult['code']}
             }).then(
                 function(response){
+
                     console.log(response);
                 }
             )
@@ -78,8 +79,13 @@ myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", fu
 myApp.controller("inputScheduleController", ["$scope", "$http", function($scope, $http){
 
 }]);
-myApp.controller("inputEmailController", ["$scope", "$http", function($scope, $http){
-
+myApp.controller("inputEmailSettingsController", ["$scope", "$http", function($scope, $http){
+    $scope.days = [0,1,2,3,4,5];
+    $scope.reminders = {
+        team_first: 5,
+        team_second: 2,
+        attendance: 2
+    };
 }]);
 
     //$scope.testSchedule = function() {

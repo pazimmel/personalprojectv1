@@ -1,0 +1,31 @@
+<header>
+    <div ng-include="'/assets/views/templates/nav.html'"></div>
+    <div ng-include="'/assets/views/templates/account.html'"></div>
+    <h1>Team Zeta Setup</h1>
+    <div ng-include="'/assets/views/templates/setupNav.html'"></div>
+</header>
+<div>
+    <form id = "scheduleInput">
+        <h1>Input Schedule</h1>
+        <label for = "newGame">New Game</label>
+        <input type = "datetime-local" ng-model = "newGame.name" id = "newGame" required>
+        <label for = "gameLocation">Email</label>
+        <input type = "text" ng-model = "newGame.location" id = "gameLocation" placeholder="Enter location here" required>
+
+        <div class = "submit-buttons">
+            <input type = "submit" value = "submit" ng-click = "inputSchedule(newGame)">
+            <input type = "submit" value = "Schedule Complete" ng-click = "">
+        </div>
+    </form>
+
+    <div class = "schedule-display">
+        <h1>Schedule</h1>
+        <div class = table>
+            <div class = "grid" ui-grid = "gridOptions" ui-grid-edit ui-grid-row-edit>
+                <!-- insert a table here-->
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,26 +1,22 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" ng-app="myApp">-->
-<!--<head>-->
-    <!--<meta charset="UTF-8">-->
 
-    <!--<title>Team Manager version 1.1 - Manager Page</title>-->
-    <!--&lt;!&ndash; Styles&ndash;&gt;-->
-    <!--<link rel="stylesheet" href="/assets/styles/style.css">-->
+<header>
+    <div ng-include="'/assets/views/templates/nav.html'"></div>
+    <div ng-include="'/assets/views/templates/account.html'"></div>
+    <h1>Team Zeta Attendance</h1>
+</header>
+<div class = "attendance-schedule">
+    <div class = "attendance">
+        <h1>Attendance</h1>
+        <div class = "grid" ui-grid = "gridOptions1" ui-grid-edit ui-grid-row-edit>
+            <!-- insert a table here-->
+        </div>
+    </div>
+    <div class = "schedule">
+        <h1>Schedule</h1>
+        <div class = "grid" ui-grid = "gridOptions2" ui-grid-edit ui-grid-row-edit>
+            <!-- insert a table here-->
+        </div>
 
-    <!--&lt;!&ndash; Scripts&ndash;&gt;-->
+    </div>
+</div>
 
-    <!--&lt;!&ndash;<script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>&ndash;&gt;-->
-    <!--<script type="text/javascript" src="/vendors/angular.min.js"></script>-->
-    <!--<script type="text/javascript" src="/vendors/angular-route.min.js"></script>-->
-    <!--<script type="text/javascript" src="/assets/scripts/app.min.js"></script>-->
-    <!--<script type="text/javascript" src="/assets/scripts/controllers/controller.min.js"></script>-->
-<!--</head>-->
-
-    <header>
-        <div ng-include="'/assets/views/templates/nav.html'"></div>
-        <div ng-include="'/assets/views/templates/account.html'"></div>
-        <h1>Team Zeta Attendance</h1>
-    </header>
-
-
-<!--</html>-->
