@@ -8,12 +8,13 @@
     <form id = "scheduleInput">
         <h1>Input Schedule</h1>
         <label for = "newGame">New Game</label>
-        <input type = "datetime-local" ng-model = "newGame.name" id = "newGame" required>
-        <label for = "gameLocation">Email</label>
-        <input type = "text" ng-model = "newGame.location" id = "gameLocation" placeholder="Enter location here" required>
+        <input type = "datetime-local" ng-model = "newGame.date" id = "newGame" required>
 
+
+        <label for = "gameLocation">Location</label>
+        <input type = "text" ng-model = "newGame.location" id = "gameLocation" placeholder="Enter location here" required>
         <div class = "submit-buttons">
-            <input type = "submit" value = "submit" ng-click = "inputSchedule(newGame)">
+            <input type = "submit" value = "submit" ng-click = "inputGame(newGame)">
             <input type = "submit" value = "Schedule Complete" ng-click = "">
         </div>
     </form>

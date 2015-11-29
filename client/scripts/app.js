@@ -1,6 +1,67 @@
-var myApp = angular.module("myApp", ['ngRoute', 'ui.grid', 'ui.grid.edit']);
+var myApp = angular.module("myApp", ['ngRoute', 'ui.grid', 'ui.grid.edit','angular-google-gapi', 'angularMoment']);
 
-myApp.config(['$routeProvider', function($routeProvider){
+myApp.run(['GAuth', 'GApi', "$location",
+    function(GAuth, GApi, $location) {
+
+        var CLIENT = '1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com';
+        //var BASE = 'https://myGoogleAppEngine.appspot.com/_ah/api';
+
+        GAuth.setClient(CLIENT);
+        GApi.load('calendar', 'v3');
+        //GAuth.setClient(CLIENT);
+        GAuth.setScope('https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar');
+        //GAuth.auth2();
+
+
+        //GAuth.checkAuth().then(
+        //    function() {
+        //        $location.path('/playerAttendance'); // an example of action if it's possible to
+        //        // authenticate user at startup of the application
+        //    },
+        //    function() {
+        //        $location.path('/login');       // an example of action if it's impossible to
+        //        // authenticate user at startup of the application
+        //    }
+        //);
+
+    }]);
+
+myApp.config(['$routeProvider', function ($routeProvider) {
+    //$routeProvider
+    //    .otherwise('/login');
+    //googleClientProvider
+    //    //.loadPickerLibrary()
+    //    .loadGoogleAuth({
+    //        cookie_policy: 'single_host_origin',
+    //        //hosted_domain: 'http://localhost:5000',
+    //        fetch_basic_profile: true
+    //    })
+        //.setClientId('1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com')
+        //.addScope('https://www.googleapis.com/auth/calendar');
+        //.addScope('another scope')
+        //.addApi('myApi', 'v1', 'https://app-id.appspot.com/_ah/api')
+        //.addApi('oauth2', 'v2');
+    //$stateProvider
+    //    .state('login', {
+    //        url: "/login",
+    //        views: {
+    //            '': {
+    //                templateUrl: "assets/views/routes/login.html",
+    //                controller: "loginController"
+    //            }
+    //        }
+    //    })
+    //    .state('home', {
+    //        url: "/playerAttendance",
+    //        views: {
+    //            '': {
+    //                templateUrl: "assets/views/routes/playerAttendance.html",
+    //                controller: "attendanceController"
+    //            }
+    //        }
+    //
+    //    });
+
     $routeProvider
         .when('/login', {
             templateUrl: "assets/views/routes/login.html",

@@ -46,6 +46,18 @@ module.exports = function(grunt){
                 ],
                 dest: "server/public/vendors/"
             },
+            moment: {
+                expand: true,
+                cwd:'node_modules/moment',
+                src: "moment.js",
+                dest: "server/public/vendors"
+            },
+            angularMoment: {
+                expand: true,
+                cwd: 'node_modules/angular-moment',
+                src:"angular-moment.js",
+                dest:"server/public/vendors"
+            },
             html: {
                 expand: true,
                 cwd: 'client/views/',

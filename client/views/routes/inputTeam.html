@@ -9,9 +9,9 @@
         <form id = "teamInput">
             <h1>Input Team</h1>
             <label for = "playerName">New Player</label>
-            <input type = "text" ng-model = "newPlayer.name" id = "playerName" placeholder="Enter player name" required>
+            <input type = "text" ng-model = "newPlayer.name" id = "playerName" placeholder="Enter player name">
             <label for = "playerEmail">Email</label>
-            <input type = "email" ng-model = "newPlayer.email" id = "playerEmail" placeholder="Enter player email" required>
+            <input type = "email" ng-model = "newPlayer.email" id = "playerEmail" placeholder="Enter player email">
             <label for = "playerPhone">Phone Number</label>
             <input type = "tel" ng-model = "newPlayer.phoneNumber" id = "playerPhone" placeholder="Enter player phone(optional)">
             <input type="radio" name="sex" value="player" ng-model = "newPlayer.type" checked>Player
@@ -19,7 +19,7 @@
 
             <div class = "submit-buttons">
                 <input type = "submit" value = "submit" ng-click = "inputPlayer(newPlayer)">
-                <input type = "submit" value = "Roster Complete" ng-click = "">
+                <input type = "submit" value = "Roster Complete" ng-click = "offlineAccess()">
             </div>
         </form>
 

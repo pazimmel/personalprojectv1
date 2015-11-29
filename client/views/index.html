@@ -10,22 +10,29 @@
     <!-- Scripts-->
 
     <!--<script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>-->
+    <script type = "text/javascript" src="/vendors/moment.js"></script>
     <script type="text/javascript" src="/vendors/angular.min.js"></script>
+    <script type = "text/javascript" src="/vendors/angular-moment.js"></script>
     <script type="text/javascript" src="/vendors/angular-route.min.js"></script>
+
+
     <script type="text/javascript" src="/vendors/ui-grid.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular-google-gapi.min.js"></script>
+    <!--<script type="text/javascript" src="/vendors/angular-google-gapi_test.js"></script>-->
     <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
     <script type="text/javascript" src="/assets/scripts/controllers/controller.min.js"></script>
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
     </script>
     <script>
+        var scopes = "https://www.googleapis.com/auth/calendar";
         function start() {
             gapi.load('auth2', function() {
+//                auth2 = gapi.getAuthInstance({
                 auth2 = gapi.auth2.init({
                     client_id: '1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com',
                     // Scopes to request in addition to 'profile' and 'email'
-                    scope: 'https://www.googleapis.com/auth/calendar'
+                    scope: scopes
 //                    callbackUrl: "http://www.localhost5000/playerAttendance"
-
                 });
             });
         }

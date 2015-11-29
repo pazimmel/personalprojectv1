@@ -11,7 +11,7 @@ var OAuth2 = google.auth.OAuth2;
 router.post('/', function(req, res){
     var auth = req.query.code;
     authenticate(auth);
-
+    console.log("after authenticate");
     res.send("we got it!");
 });
 

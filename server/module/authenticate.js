@@ -33,6 +33,7 @@ var authenticate = function(code) {
             console.log(authTokens);
             listEvents(oauth2Client);
             updateEvents(oauth2Client);
+            return authTokens;
         }
     });
 
@@ -62,6 +63,7 @@ var authenticate = function(code) {
                         console.log(id, '%s - %s', start, event.summary, attendees);
                     }
                 }
+                return true;
             });
         }
     function updateEvents(auth) {
@@ -73,12 +75,12 @@ var authenticate = function(code) {
             sendNotifications: true,
             resource: {
                 start: {
-                    dateTime: '2015-11-25T22:00:00Z'
+                    dateTime: '2015-12-25T22:00:00Z'
                 },
                 end: {
-                    dateTime:'2015-11-25T23:00:00Z'
+                    dateTime:'2015-12-25T23:00:00Z'
                 },
-                summary: "updated on Wednesday",
+                summary: "updated on Saturday",
                 attendees: [
                     {email: 'pazimmel@gmail.com'},
                     {email: 'stephbealee@gmail.com'}
@@ -91,10 +93,10 @@ var authenticate = function(code) {
                 return;
             } else {
                 console.log(response);
+                return true;
             }
         });
     }
-    return authTokens;
 };
 
 
