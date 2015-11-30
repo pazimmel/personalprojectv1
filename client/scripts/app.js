@@ -86,15 +86,28 @@ myApp.config(['$routeProvider', function ($routeProvider) {
         .otherwise('/login');
 }]);
 
-myApp.service("ManagerService", ["$http", function($http){
-    var playerArray = undefined;
+myApp.service("ManagerService", ["$http", "GApi", function($http,GApi){
+    var playerArray, calendarArray, calendarId =undefined;
+    var settings = [];
 
     var getTeam = function(){
-        var promise = $http.get('/team').then(function(response){
+        var promise = $http.get('/team/roster').then(function(response){
                 console.log(response.data);
                 playerArray = response.data;
             });
         return promise;
+    };
+
+    var getCalendar = function(){
+        var promise = $http.get('/team/calendar').then(function(response){
+           console.log(response.data);
+            calendarArray = response.data;
+        });
+        return promise;
+    };
+
+    var settingComplete = function(settingObject){
+        settings.push(settingObject);
     };
 
     var teamApi = {
@@ -104,6 +117,25 @@ myApp.service("ManagerService", ["$http", function($http){
         },
         displayTeam: function(){
             return playerArray;
+        },
+        retrieveCalendar: function(){
+            return getCalendar();
+        },
+        displayCalendar: function(){
+            return calendarArray;
+        },
+        inputSetting: function(settingObject){
+            return settingComplete(settingObject);
+        },
+        retrieveSetting: function(){
+            return settings;
+        },
+        setCalendarId: function(someid){
+            calendarId = someid;
+            return calendarId;
+        },
+        getCalendarId: function(){
+            return calendarId;
         }
     };
     return teamApi;

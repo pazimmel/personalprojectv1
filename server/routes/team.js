@@ -8,8 +8,10 @@ var Schema = mongoose.Schema;
 mongoose.model('Player', new Schema({"name": String, "email": String, "type": String}, {collection: 'roster'}, {autoIndex: false}));
 var Player = mongoose.model('Player');
 
+mongoose.model('Calendar', new Schema({"name": String, "summary": String, "id": String}, {collection:'calendar'}, {autoIndex: false}));
+var Calendar = mongoose.model('Calendar');
 
-router.route('/')
+router.route('/roster')
     .post(function(req, res){
         var player = req.body;
         console.log(player);
@@ -36,5 +38,21 @@ router.route('/delete')
         });
 
     });
-
+router.route('/calendar')
+    .post(function(req,res){
+        var calendar = req.body;
+        console.log(calendar);
+        calendar = new Calendar({summary: calendar.summary, id: calendar.id});
+        calendar.save(function(err, data){
+            if (err) console.log("Error ", err);
+            res.send(data);
+        });
+    })
+    .get(function(req,res){
+        var calendars;
+        Calendar.find({}, function(err,data){
+            if (err) console.log("Error: ", err);
+            res.send(data);
+        });
+    });
 module.exports = router;

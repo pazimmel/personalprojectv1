@@ -67,14 +67,18 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", f
     $scope.gridOptions1 = {};
     $scope.gridOptions2 = {};
 }]);
-
-//input team controller
+///////////////////////////
+//ROSTER CONTROLLER//
+//////////////////////////
 myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", "GAuth", function($scope, $http, ManagerService, GAuth){
     $scope.newPlayer = {};
     $scope.playerArray = [];
     $scope.gridOptions = {};
     $scope.managerService = ManagerService;
-
+    $scope.settings = [];
+    $scope.roster = {
+        roster: false
+    };
     //console.log("here we are", GAuth.offline().getCode());
     //grantOfflineAccess({'redirect_uri': 'postmessage'}).then($scope.signInCallback))
     //GAuth.auth2().grantOfflineAccess({'redirect_uri': 'postmessage'}).then($scope.signInCallback);
@@ -97,7 +101,7 @@ myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", "G
 
 
     $scope.inputPlayer = function(newPlayer){
-        $http.post('/team', newPlayer).then(function(response){
+        $http.post('/team/roster', newPlayer).then(function(response){
             console.log(response);
             $scope.refreshGrid();
         });
@@ -121,16 +125,42 @@ myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", "G
       console.log(row);
     };
 
+    $scope.rosterComplete = function(){
+        $scope.roster.roster = true;
+        $scope.managerService.inputSetting($scope.roster);
+        $scope.settings = $scope.managerService.retrieveSetting();
+        console.log("scope.settings in the roster, ",$scope.settings);
+    };
+
 
     $scope.refreshGrid();
 
 }]);
-
-//input schedule controller
-myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment', function($scope, $http, GApi, moment){
+///////////////////////////////
+//SCHEDULE CONTROLLER////////////
+/////////////////////////////////
+myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment', 'ManagerService',"$filter", function($scope, $http, GApi, moment, ManagerService, $filter){
     $scope.gridOptions = {};
     $scope.newGame = {};
+    $scope.newCalendar = {};
+    $scope.currentCalendars = {};
+    $scope.managerService = ManagerService;
+    $scope.playerArray = [];
+    $scope.playerEmails = [];
+    $scope.selectedCalendar = {};
+    $scope.settings = [];
+    $scope.schedule = {
+        schedule: false
+    };
 
+    $scope.gridOptions = {
+        columnDefs: [
+            {field: "summary", name: "Event"},
+            {field: "date", name: "Date"},
+            {field: "start", name: "Time"},
+            {field: "location", name: "Location"}
+        ]
+    };
     $scope.event = {
         calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
         summary: 'newGame',
@@ -146,10 +176,70 @@ myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment',
             {'email': 'stephbealee@gmail.com'}
         ]
     };
-        $scope.inputGame = function(game){
 
+    $scope.getEmailAddresses = function(){
+        $scope.managerService.retrieveTeam().then(function() {
+            $scope.playerArray = $scope.managerService.displayTeam();
+            //console.log($scope.playerArray);
+            for(var i =0; i<$scope.playerArray.length; i++){
+                //console.log($scope.playerArray[i].email);
+                $scope.playerEmails.push({email: $scope.playerArray[i].email});
+
+            }
+        });
+    };
+    $scope.getCalendars = function(){
+        $scope.managerService.retrieveCalendar().then(function(){
+            $scope.currentCalendars = $scope.managerService.displayCalendar();
+            console.log("result from getCalendars, ",$scope.currentCalendars);
+            console.log("currentCalendars id, ", $scope.currentCalendars[0].id);
+            return $scope.currentCalendars;
+        });
+    };
+
+    $scope.getEvents = function(calendar){
+        GApi.executeAuth('calendar', 'events.list', {calendarId: calendar.id}).then(function(resp){
+            console.log("resp.items ",resp.items);
+            $scope.gridOptions.data = resp.items;
+
+            for(var i =0;i<$scope.gridOptions.data.length;i++){
+                $scope.gridOptions.data[i].date = $filter('date')($scope.gridOptions.data[i].start.dateTime,'EEE, MMM d');
+                $scope.gridOptions.data[i].start = $filter('date')($scope.gridOptions.data[i].start.dateTime,'shortTime');
+            }
+
+            //$filter('date')($scope.gridOptions.data.start.dateTime, "mediumTime");
+            console.log("gridpOptions.data ",$scope.gridOptions.data);
+            return $scope.gridOptions.data;
+        });
+    };
+    $scope.createCalendar = function(){
+        GApi.executeAuth('calendar', 'calendars.insert', $scope.newCalendar).then(function(resp){
+            console.log("response from createCalendar, ",resp);
+            $scope.newCalendar.id = resp.id;
+            console.log($scope.newCalendar);
+            $scope.inputCalendar();
+            $scope.getCalendars();
+            return $scope.newCalendar;
+        }, function(){
+            console.log("error");
+        });
+
+    };
+
+    $scope.inputCalendar = function(){
+      $http.post('/team/calendar', $scope.newCalendar).then(function(resp){
+          console.log("response from inputCalendar, ",resp);
+          //$scope.getCalendars();
+          return $scope.newCalendar;
+      });
+    };
+
+    $scope.inputGame = function(game){
+            console.log("currentCalendarsid in inputGame ", $scope.currentCalendars.id);
+            $scope.event.calendarId = $scope.currentCalendars[0].id;
+            $scope.event.attendees = $scope.playerEmails;
             //$scope.newGame.end = $scope.newGame.start;
-            console.log(newGame.date);
+            //console.log(newGame.date);
             $scope.event.location = $scope.newGame.location;
             $scope.event.start.dateTime = $scope.newGame.date;
             $scope.event.end.dateTime = moment($scope.newGame.date).add(1, 'hours');
@@ -158,10 +248,25 @@ myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment',
 
             GApi.executeAuth('calendar', 'events.insert', $scope.event).then(function(resp) {
                 $scope.value = resp;
+                return game;
             }, function() {
                 console.log("error :(");
             });
+
         };
+
+    $scope.scheduleComplete = function(){
+      $scope.schedule.schedule = true;
+        $scope.managerService.inputSetting($scope.schedule);
+        $scope.settings = $scope.managerService.retrieveSetting();
+        console.log("scope.settings in the schedule, ",$scope.settings);
+    };
+
+    $scope.getCalendars();
+    $scope.getEmailAddresses();
+
+    //$scope.gridOptions.data = $scope.selectedCalendar.calendar;
+    //$scope.gridOptions.data = selectedCalendar.calendar;
 
 //    $scope.inputGame = function(game){
 //        console.log(game.date);
@@ -190,14 +295,26 @@ myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment',
 
 
 }]);
-
-//input email settings controller
-myApp.controller("inputEmailSettingsController", ["$scope", "$http", function($scope, $http){
+////////////////////////////////
+//EMAIL SETTINGS CONTROLLER//
+//////////////////
+myApp.controller("inputEmailSettingsController", ["$scope", "$http", "$window", function($scope, $http, $window){
+    $scope.settings = [];
+    $scope.email = {
+        email:false
+    };
     $scope.days = [0,1,2,3,4,5];
     $scope.reminders = {
         team_first: 5,
         team_second: 2,
         attendance: 2
+    };
+    $scope.calendarSettings = {};
+
+
+    $scope.inputEmailSettings= function(settings){
+        $scope.calendarSettings = settings;
+        $scope.calendarSettings.calendarId
     };
     $scope.setOfflineAccess = function(){
         console.log("click offlineAccess");
@@ -222,6 +339,20 @@ myApp.controller("inputEmailSettingsController", ["$scope", "$http", function($s
             console.log("there was an error");
         }
     };
+    $scope.emailSettingsComplete = function(){
+        $scope.email.email = true;
+        $scope.managerService.inputSetting($scope.email);
+        $scope.settings = $scope.managerService.retrieveSetting();
+        console.log("scope.settings in the email, ",$scope.settings)
+    };
+    $scope.startSeason = function() {
+        $scope.settings = $scope.managerService.retrieveSetting();
+        console.log(settings);
+        if(settings.length<3){
+            $window.alert("Hey there! You haven't completed setting up. Make sure you have clicked the appropriate 'Complete' button on each page");
+        }
+    };
+
 
 }]);
 
