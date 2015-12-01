@@ -89,10 +89,11 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
 
     $scope.gridOptions2 = {
         columnDefs: [
-            {field: "summary", name: "Event"},
-            {field: "display_date", name: "Date", sort: {direction: uiGridConstants.DESC,
-                                                priority: 0}
+            {field: "start.dateTime", visible: false, sort: {direction: uiGridConstants.ASC,
+                priority: 0}
             },
+            {field: "summary", name: "Event"},
+            {field: "display_date", name: "Date"},
             {field: "display_start", name: "Time"},
             {field: "location", name: "Location"},
             {name: 'attendance', displayName: 'Attendance', cellTemplate: '<button id="attendanceBtn" type="button" ' +
@@ -183,8 +184,8 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
                             }
                             //$scope.game.rosterEmails.push({email:$scope.game.rosterArray[i].email})
                         }
-                        console.log("sub emails ", $scope.game.subEmails);
-                        console.log("retrievedGame attendees, ",$scope.game.retrievedGame.attendees);
+                        //console.log("sub emails ", $scope.game.subEmails);
+                        //console.log("retrievedGame attendees, ",$scope.game.retrievedGame.attendees);
                         $scope.updatedEvent = {
                             calendarId: $scope.selectedCalendar.calendar.id,
                             eventId: $scope.game.selectedGame.id,
@@ -203,10 +204,10 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
                             }
                         };
 
-                        console.log("updatedEvent ", $scope.updatedEvent);
+                        //console.log("updatedEvent ", $scope.updatedEvent);
 
                         GApi.executeAuth("calendar", "events.update", $scope.updatedEvent).then(function(resp){
-                            console.log(resp);
+                            //console.log(resp);
                             $scope.getEvents($scope.selectedCalendar.calendar);
                             //$scope.getAttendance($scope.selectedCalendar.calendar);
                         }, function(){
@@ -219,32 +220,6 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
                 );
             });
     };
-            //for(var i = 0; i<$scope.game.rosterArray.length; i++){
-            //    if ($scope.game.rosterArray[i].type === "sub"){
-            //        $scope.game.subArray.push($scope.game.rosterArray[i]);
-            //    }
-            //}
-            //$scope.game.selectedGame.attendees = $scope.game.rosterArray;
-           // console.log("game.selectedGame ",$scope.game.selectedGame);
-
-            //$scope.updatedEvent = {
-            //    calendarId: $scope.game.selectedGame.iCalUID,
-            //    eventId: $scope.game.selectedGame.id,
-            //    sendNotifications: true,
-            //    resource: {
-            //        summary: 'Game',
-            //        description: "inviting subs",
-            //        start: {
-            //            dateTime: $scope.game.selectedGame.start.dateTime
-            //        },
-            //        end: {
-            //            dateTime: $scope.game.selectedGame.end.dateTime
-            //        },
-            //        attendees: $scope.game.rosterArray
-            //    }
-            //};
-
-
 
     $scope.getCalendars();
 

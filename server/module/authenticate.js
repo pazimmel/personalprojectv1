@@ -1,9 +1,11 @@
 //
 var google = require('googleapis');
 var calendar = google.calendar('v3');
-
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 var OAuth2 = google.auth.OAuth2;
-var authTokens;
+var serverCredentials;
+
 var authenticate = function(code) {
     var CLIENT_ID = "1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com";
     var CLIENT_SECRET = "JnNWn1zLSVLf4kZwwE2XR1eY";
@@ -29,12 +31,25 @@ var authenticate = function(code) {
                 refresh_token: tokens.refresh_token,
                 id_token: tokens.id_token
             });
-            authTokens = (oauth2Client.credentials);
+            serverCredentials = (oauth2Client.credentials);
 
-            console.log(authTokens);
-            listEvents(oauth2Client);
+            console.log("the server credentials: ",serverCredentials);
+
+            mongoose.model('AuthTokens', new Schema({"access_token": String, "refresh_token": String, "id_token": String}, {collection: 'authtokens'}, {autoIndex: false}));
+            var AuthTokens = mongoose.model('AuthTokens');
+
+            var data = new AuthTokens({access_token: serverCredentials.access_token, id_token:serverCredentials.id_token, refresh_token:serverCredentials.refresh_token});
+            data.save(function(err,data){
+                if (err) console.log("Error ", err);
+                console.log("the data from the save ",data);
+            });
+
+            console.log("the authTokens: ", AuthTokens);
+
+
+            //listEvents(oauth2Client);
             //updateEvents(oauth2Client);
-            return authTokens;
+            return serverCredentials;
         }
     });
 
