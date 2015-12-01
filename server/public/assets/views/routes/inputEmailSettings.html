@@ -9,8 +9,8 @@
         <h1>Game Reminders</h1>
         <div class = "first-reminder">
             <p><span>
-                Send game reminder
-                <select name ="first-reminder" ng-model = 'reminders.team_first' ng-options='number for number in days'></select>
+                Send first game reminder
+                <select name ="first-reminder" ng-model = 'reminders.first_reminder' ng-options='number for number in days'></select>
                 days before the game.
             </span></p>
         </div>
@@ -18,7 +18,7 @@
         <div class = second-reminder>
             <p><span>
                 Send second game reminder
-                <select name ="first-reminder" ng-model = 'reminders.team_second' ng-options='number for number in days'></select>
+                <select name ="second-reminder" ng-model = 'reminders.second_reminder' ng-options='number for number in days'></select>
                 days before the game.
             </span></p>
         </div>
@@ -27,14 +27,14 @@
         <h1>Attendance Reminder</h1>
         <p><span>
             Send manager attendance update
-            <select name ="attendance-update" ng-model = "reminders.attendance" ng-options ="number for number in days"></select>
+            <select name ="attendance-update" ng-model = "reminders.attendance_reminder" ng-options ="number for number in days"></select>
             days before the game.
         </span></p>
     </div>
     <div class = "submit-buttons">
-        <input type = "submit" value = "submit" ng-click = "inputEmailSettings(reminders)">
-        <input type = "submit" value = "Set Offline Access" ng-click="setOfflineAccess()">
-        <input type = "submit" value = "Settings Complete" ng-click = "emailSettingsComplete()">
+        <input type = "submit" value = "Submit Settings" ng-click = "inputEmailSettings(reminders)">
+        <!--<input type = "submit" value = "Set Offline Access" ng-click="setOfflineAccess()">-->
+        <!--<input type = "submit" value = "Settings Complete" ng-click = "emailSettingsComplete()">-->
         <input type = "submit" value = "START SEASON" ng-click = "startSeason()">
 
     </div>

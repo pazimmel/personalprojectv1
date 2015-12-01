@@ -7,12 +7,17 @@
 <div class = "attendance-schedule">
     <div class = "attendance">
         <h1>Attendance</h1>
+        <h2>{{selected.date}} {{selected.start}}</h2>
+        <input type = "submit" value = "Invite Subs" ng-click = "inviteSubs()">
         <div class = "grid" ui-grid = "gridOptions1" ui-grid-edit ui-grid-row-edit>
             <!-- insert a table here-->
         </div>
     </div>
     <div class = "schedule">
         <h1>Schedule</h1>
+        <label>Calendar Name</label>
+        <select ng-model = "selectedCalendar.calendar" ng-options="calendar.summary for calendar in currentCalendars"
+                ng-change="getEvents(selectedCalendar.calendar)"></select>
         <div class = "grid" ui-grid = "gridOptions2" ui-grid-edit ui-grid-row-edit>
             <!-- insert a table here-->
         </div>

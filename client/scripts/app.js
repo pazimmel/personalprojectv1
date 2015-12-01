@@ -8,8 +8,9 @@ myApp.run(['GAuth', 'GApi', "$location",
 
         GAuth.setClient(CLIENT);
         GApi.load('calendar', 'v3');
+        GApi.load('gmail', 'v1');
         //GAuth.setClient(CLIENT);
-        GAuth.setScope('https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar');
+        GAuth.setScope('https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.compose');
         //GAuth.auth2();
 
 
@@ -92,7 +93,7 @@ myApp.service("ManagerService", ["$http", "GApi", function($http,GApi){
 
     var getTeam = function(){
         var promise = $http.get('/team/roster').then(function(response){
-                console.log(response.data);
+                //console.log(response.data);
                 playerArray = response.data;
             });
         return promise;
@@ -100,7 +101,7 @@ myApp.service("ManagerService", ["$http", "GApi", function($http,GApi){
 
     var getCalendar = function(){
         var promise = $http.get('/team/calendar').then(function(response){
-           console.log(response.data);
+           //console.log(response.data);
             calendarArray = response.data;
         });
         return promise;

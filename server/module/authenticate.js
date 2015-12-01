@@ -30,9 +30,10 @@ var authenticate = function(code) {
                 id_token: tokens.id_token
             });
             authTokens = (oauth2Client.credentials);
+
             console.log(authTokens);
             listEvents(oauth2Client);
-            updateEvents(oauth2Client);
+            //updateEvents(oauth2Client);
             return authTokens;
         }
     });

@@ -11,6 +11,10 @@ var Player = mongoose.model('Player');
 mongoose.model('Calendar', new Schema({"name": String, "summary": String, "id": String}, {collection:'calendar'}, {autoIndex: false}));
 var Calendar = mongoose.model('Calendar');
 
+mongoose.model('Reminder', new Schema({"first_reminder": Number, "second_reminder": Number, "attendance_reminder": Number, "calendarId": String},
+    {collection: "reminder"}, {autoIndex: false}));
+var Reminder = mongoose.model('Reminder');
+
 router.route('/roster')
     .post(function(req, res){
         var player = req.body;
@@ -54,5 +58,15 @@ router.route('/calendar')
             if (err) console.log("Error: ", err);
             res.send(data);
         });
+    });
+router.route('/reminder')
+    .post(function(req,res){
+        var reminder = req.body;
+        reminder = new Reminder({first_reminder: reminder.first_reminder, second_reminder: reminder.second_reminder, attendance_reminder: reminder.attendance_reminder, calendarId: reminder.calendarId});
+        reminder.save(function(err,data){
+            if(err) console.log("Error ", err);
+            res.send(data);
+        });
+
     });
 module.exports = router;

@@ -13,6 +13,9 @@
         </div>
         <div class = "create-schedule">
             <h1>Input Schedule</h1>
+            <label>Calendar Name</label>
+            <select ng-model = "selectedCalendar.calendar" ng-options="calendar.summary for calendar in currentCalendars"
+                    ng-change="getEvents(selectedCalendar.calendar)"></select>
             <label for = "newGame">New Game</label>
             <input type = "datetime-local" ng-model = "newGame.date" id = "newGame">
             <label for = "gameLocation">Location</label>
@@ -28,7 +31,8 @@
     <div class = "schedule-display">
         <h1>Schedule</h1>
         <label>Calendar Name</label>
-        <select ng-model = "selectedCalendar.calendar" ng-options="calendar.summary for calendar in currentCalendars" ng-change="getEvents(selectedCalendar.calendar)"></select>
+        <select ng-model = "selectedCalendar.calendar" ng-options="calendar.summary for calendar in currentCalendars"
+                ng-change="getEvents(selectedCalendar.calendar)"></select>
         <!--<input type = "submit" value = "Get events" ng-click = "getEvents(selectedCalendar.calendar)">-->
         <div class = "table">
             <div class = "grid" ui-grid = "gridOptions" ui-grid-edit ui-grid-row-edit>

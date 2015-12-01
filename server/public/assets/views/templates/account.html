@@ -8,5 +8,6 @@
 <div>
     <!-- need a controller in here which has a dropdown menu-->
     <!-- for now I'll put a p tag, so we can see it-->
-    <p>Email</p>
+    <select ng-model = "selectedEmail.email" ng-options="email.name for email in emailTeam"
+            ng-change="emailSelected(selectedEmail.email)"></select>
 </div>
