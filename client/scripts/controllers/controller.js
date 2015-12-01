@@ -75,9 +75,14 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
     $scope.currentCalendars = {};
     $scope.selectedCalendar = {};
     $scope.selected = {};
+        $scope.eventsData = [];
     $scope.game = {};
-        $scope.game.rosterArray = [];
         $scope.game.subArray = [];
+
+        $scope.game.subEmails = [];
+        $scope.game.selectedGame = {};
+        $scope.updatedEvent = {};
+
     //
     //    console.log("scope.now._d ",$scope.now.date);
     $scope.managerService = ManagerService;
@@ -85,10 +90,10 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
     $scope.gridOptions2 = {
         columnDefs: [
             {field: "summary", name: "Event"},
-            {field: "date", name: "Date", sort: {direction: uiGridConstants.DESC,
+            {field: "display_date", name: "Date", sort: {direction: uiGridConstants.DESC,
                                                 priority: 0}
             },
-            {field: "start", name: "Time"},
+            {field: "display_start", name: "Time"},
             {field: "location", name: "Location"},
             {name: 'attendance', displayName: 'Attendance', cellTemplate: '<button id="attendanceBtn" type="button" ' +
             'class="btn-large" ng-model = "selected.game" ng-click="grid.appScope.getAttendance(row.entity)">attendance</button>'}
@@ -122,16 +127,19 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
             //console.log("calendar.calendar.id, ",$scope.selectedCalendar.calendar.id);
             //$scope.managerService.setCalendarId($scope.selectedCalendar.calendar.id);
             //console.log("in the managerService, ",$scope.managerService.getCalendarId());
+
             $scope.gridOptions2.data = resp.items;
             //console.log("gridOptions2.data ",$scope.gridOptions2.data);
 
             for(var i =0;i<$scope.gridOptions2.data.length;i++){
 
-                $scope.game.date = moment($scope.gridOptions2.data[i].start.dateTime).fromNow(true);
-                console.log($scope.game.date);
+                //$scope.eventsData[i] = $scope.gridOptions2.data[i];
+                //$scope.game.date = moment($scope.gridOptions2.data[i].start.dateTime).fromNow(true);
+                //console.log($scope.game.date);
                 //console.log("the difference in time?, ",$scope.now.date.diff($scope.gridOptions2.data[i].start.dateTime));
-                $scope.gridOptions2.data[i].date = $filter('date')($scope.gridOptions2.data[i].start.dateTime,'EEEE, MMM d');
-                $scope.gridOptions2.data[i].start = $filter('date')($scope.gridOptions2.data[i].start.dateTime,'shortTime');
+                $scope.gridOptions2.data[i].display_date = $filter('date')($scope.gridOptions2.data[i].start.dateTime,'EEEE, MMM d');
+                $scope.gridOptions2.data[i].display_start = $filter('date')($scope.gridOptions2.data[i].start.dateTime,'shortTime');
+
 
 
             }
@@ -146,21 +154,97 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
     };
     $scope.getAttendance = function(row){
         //console.log("in getAttendance, ",row);
-        $scope.selected.date = row.date;
-        $scope.selected.start = row.start;
+        $scope.selected.display_date = row.display_date;
+        $scope.selected.display_start = row.display_start;
         $scope.gridOptions1.data = row.attendees;
+        $scope.game.selectedGame = row;
+        //console.log("selected game to input in calendar: ", $scope.game.selectedGame);
     };
-    $scope.inviteSubs = function(){
-        $scope.managerService.retrieveTeam().then(function(){
-            $scope.game.rosterArray = $scope.managerService.displayTeam();
-            for(var i = 0; i<$scope.game.rosterArray.length; i++){
-                if ($scope.game.rosterArray[i].type === "sub"){
-                    $scope.game.subArray.push($scope.game.rosterArray[i]);
-                }
-            }
-            console.log($scope.game);
-        });
+    $scope.inviteSubs = function() {
+        console.log("calendar id ", $scope.selectedCalendar.calendar.id);
+        console.log("event id ", $scope.game.selectedGame.id);
+        GApi.executeAuth('calendar', 'events.get', {
+            calendarId: $scope.selectedCalendar.calendar.id,
+            eventId: $scope.game.selectedGame.id
+        }).then(
+            function (resp) {
+                console.log("the event to add invites? ", resp);
+                $scope.game.retrievedGame = resp;
+
+                $scope.managerService.retrieveTeam().then(function () {
+                        $scope.game.rosterArray = $scope.managerService.displayTeam();
+
+                        for(var i = 0; i<$scope.game.rosterArray.length; i++){
+                            //console.log("rosterArray", $scope.game.rosterArray);
+                            if($scope.game.rosterArray[i].type == "sub"){
+                                $scope.game.subEmails.push({email:$scope.game.rosterArray[i].email});
+                                $scope.game.retrievedGame.attendees.push({email:$scope.game.rosterArray[i].email});
+
+                            }
+                            //$scope.game.rosterEmails.push({email:$scope.game.rosterArray[i].email})
+                        }
+                        console.log("sub emails ", $scope.game.subEmails);
+                        console.log("retrievedGame attendees, ",$scope.game.retrievedGame.attendees);
+                        $scope.updatedEvent = {
+                            calendarId: $scope.selectedCalendar.calendar.id,
+                            eventId: $scope.game.selectedGame.id,
+                            sendNotifications: true,
+                            resource: {
+                                summary: 'Game',
+                                description: "inviting subs",
+                                start:{
+                                    dateTime: $scope.game.retrievedGame.start.dateTime
+                                },
+                                end: {
+                                    dateTime: $scope.game.retrievedGame.end.dateTime
+                                },
+                                attendees: $scope.game.retrievedGame.attendees,
+                                location:$scope.game.retrievedGame.location
+                            }
+                        };
+
+                        console.log("updatedEvent ", $scope.updatedEvent);
+
+                        GApi.executeAuth("calendar", "events.update", $scope.updatedEvent).then(function(resp){
+                            console.log(resp);
+                            $scope.getEvents($scope.selectedCalendar.calendar);
+                            //$scope.getAttendance($scope.selectedCalendar.calendar);
+                        }, function(){
+                            console.log("error updating");
+                        });
+
+                    }, function () {
+                        console.log("error getting");
+                    }
+                );
+            });
     };
+            //for(var i = 0; i<$scope.game.rosterArray.length; i++){
+            //    if ($scope.game.rosterArray[i].type === "sub"){
+            //        $scope.game.subArray.push($scope.game.rosterArray[i]);
+            //    }
+            //}
+            //$scope.game.selectedGame.attendees = $scope.game.rosterArray;
+           // console.log("game.selectedGame ",$scope.game.selectedGame);
+
+            //$scope.updatedEvent = {
+            //    calendarId: $scope.game.selectedGame.iCalUID,
+            //    eventId: $scope.game.selectedGame.id,
+            //    sendNotifications: true,
+            //    resource: {
+            //        summary: 'Game',
+            //        description: "inviting subs",
+            //        start: {
+            //            dateTime: $scope.game.selectedGame.start.dateTime
+            //        },
+            //        end: {
+            //            dateTime: $scope.game.selectedGame.end.dateTime
+            //        },
+            //        attendees: $scope.game.rosterArray
+            //    }
+            //};
+
+
 
     $scope.getCalendars();
 
@@ -258,7 +342,7 @@ myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment',
     };
 
     $scope.event = {
-        calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
+        //calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
         summary: 'Game',
         sendNotifications: true,
         description: "a test",
