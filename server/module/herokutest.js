@@ -26,7 +26,7 @@ var update = function() {
 
     tokens = {
         "_id" : ("565e47964a52f62b3435961a"),
-        "access_token" : "ya29.PgKpWatbmZllV_OCpNVnW1ugfjlGsJW5Y-JtQUwqsHRplbEEzxekXTWeT7P1NAuDmuf-3g",
+        "access_token" : "ya29.PgI7lANxFeXnTc4uIUM7_aSeWb6go8R42n5MOfjAmBJ4VsTh89V-fUmlbwYhClOV29lyLA",
         "id_token" : "eyJhbGciOiJSUzI1NiIsImtpZCI6ImUzZGQzYTZmOGQ0MjlkMWMwNmNlNjAxOTliZmZkZDBiYWI0ZGUzNGUifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXRfaGFzaCI6ImJ5azh2UDF6eEtISVhCX2dwb1RmVXciLCJhdWQiOiIxMDE0NTQ1MjUxOTAwLWFuYWIyMGhrZ2ljYjMwZ3BzZ3U3cTd2YjQ3cG5yMzI2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE3MDMzNjE0NjA2OTIwNDM1MDc5IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF6cCI6IjEwMTQ1NDUyNTE5MDAtYW5hYjIwaGtnaWNiMzBncHNndTdxN3ZiNDdwbnIzMjYuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJlbWFpbCI6InBhemltbWVsQGdtYWlsLmNvbSIsImlhdCI6MTQ0OTAxOTI4MiwiZXhwIjoxNDQ5MDIyODgyfQ.Gs3Ll9l5kdIewhhoYN-HzVyHbCpuk1nv2r1nehpBZOWTD2zdve16W1csK1VzB5-_5VZJ2WrpqYV7Hh_SQ-jG9UKP_36KI1KWHRQYF-M9iEs56bs2-OLDtmnkA4kMQm2KVQDfCDiaXvWBWC4WVF0xuYzM9rRgWeie28REc5x3Eh7nSLRx6P04ssoQocbL6YNJFwpAxnSTxAgDfFF_Eb-68xRQM4if5pDgwZwII5F1Pv72fxuDA50yrQa_YNtG4SB2-ctfCtByK7oiM5wwuzK8GP6taWM_dYgjmikNcf97jRFLuqareFc_npX5prrpQV3hQ7UiBLCzooP57fprV5v6KA",
         "refresh_token" : "1/IMiG-Iym41PY1XfCq5K2B7TyjDCbgM9nKgYb0rWMHCU",
         "__v" : 0
@@ -50,23 +50,23 @@ var update = function() {
 
     console.log("before set credentials");
 
-    request.post({url:'https://www.googleapis.com/oauth2/v3/token', form: {refresh_token: tokens.refresh_token, client_id: CLIENT_ID, client_secret: CLIENT_SECRET, grant_type: 'refresh_token'}},
-        function (err,response,body) {
-            if(err) console.log("error:", err);
-            console.log("the body ", body);
-            //console.log("body['access_token']" ,body.access_token);
-            authToday = body;
-            console.log("authToday ,",authToday);
+    //request.post({url:'https://www.googleapis.com/oauth2/v3/token', form: {refresh_token: tokens.refresh_token, client_id: CLIENT_ID, client_secret: CLIENT_SECRET, grant_type: 'refresh_token'}},
+    //    function (err,response,body) {
+    //        if(err) console.log("error:", err);
+    //        console.log("the body ", body);
+    //        //console.log("body['access_token']" ,body.access_token);
+    //        authToday = body;
+    //        console.log("authToday ,",authToday);
 
             oauth2Client.setCredentials({
-                access_token: authToday,
+                access_token: tokens.access_token,
                 id_token: tokens.id_token,
                 refresh_token:tokens.refresh_token
             });
             console.log("after setCredentials ",oauth2Client.credentials);
             getEvents(oauth2Client,calendarData);
             //console.log("the response", response);
-        });
+        //});
 
     function getEvents(auth, cal){
         console.log("in get events");

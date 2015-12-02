@@ -32,8 +32,15 @@ span.buttonText {
 }
 li {
     list-style-type: none;
+    margin:10px
 }
-.main-nav, .setup-nav {
+.main-nav{
+    text-align: center;
+    max-width: 300px;
+    padding:5px;
+
+}
+.setup-nav {
     min-width: 100px;
     text-align: center;
     max-width: 300px;
