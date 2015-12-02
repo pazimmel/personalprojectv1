@@ -4,6 +4,7 @@ var calendar = google.calendar('v3');
 var mongoose = require('mongoose');
 var mongo = require('./mongoose');
 var schema = require('./schema');
+var request = require('request');
 
 //var Schema = mongoose.Schema;
 var OAuth2 = google.auth.OAuth2;
@@ -15,6 +16,7 @@ var serverCredentials;
 var tokens;
 var reminders;
 var calendarData;
+var authToday;
 
 mongo.mongoDB;
 mongo.mongoURI;
@@ -38,6 +40,12 @@ var update = function() {
     console.log("in update");
     var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, "http://localhost:5000");
 
+    //request.post({url:'http://service.com/upload', form: {key:'value'}}, function(err,httpResponse,body){ /* ... */ })
+    //request.post({url:'https://www.googleapis.com/oauth2/v3/token'},
+    //    {refresh_token:tokens.refresh_token, client_id: CLIENT_ID, client_secret: CLIENT_SECRET, grant_type:refresh_token}, function(err,response,body){
+    //        console.log("the response ",response);
+    //        console.log("the body ", body);
+    //    });
     //mongoose.model('AuthTokens', new Schema({"access_token": String, "refresh_token": String, "id_token": String}, {collection: 'authtokens'}, {autoIndex: false}));
     //var AuthTokens = mongoose.model('AuthTokens');
     //
@@ -74,8 +82,61 @@ var update = function() {
             //    if (err) console.log("Error :", err);
             //    console.log("the response from getToken ",resp)
             //});
+            //console.log("teh request ",request);
+            //request.get("http://www.google.com", function(err,response, body){
+            //    if (err) console.log(err);
+            //    console.log("the body ",body);
+            //    console.log("the response ",response);
+            //});
+            request.post({url:'https://www.googleapis.com/oauth2/v3/token', form: {refresh_token: tokens.refresh_token, client_id: CLIENT_ID, client_secret: CLIENT_SECRET, grant_type: 'refresh_token'}},
+                function (err,response,body) {
+                    if(err) console.log("error:", err);
+                    console.log("the body ", body);
+                    console.log("body['access_token']" ,body.access_token);
+                    authToday = body
+                    //console.log("the response", response);
+                });
+
+            //    ,
+            //        client_id: CLIENT_ID,
+            //        client_secret: CLIENT_SECRET,
+            //        grant_type: refresh_token
+            //    }
+            //);
+            /*
+             form: , function (err,response,body) {
+             console.log("error:", err);
+             console.log("the body ", body);*/
+
+            //
+            //request({
+            //        url:'https://www.googleapis.com/oauth2/v3/token',
+            //        method: 'POST',
+            //        //headers: {
+            //        //    "content-type": "application/x-www-form-urlencoded"},
+            //        body: {
+            //            refresh_token:tokens.refresh_token,
+            //            client_id: CLIENT_ID,
+            //            client_secret: CLIENT_SECRET,
+            //            grant_type:refresh_token
+            //        }
+            //        //refresh_token:tokens.refresh_token,
+            //        //client_id: CLIENT_ID,
+            //        //client_secret: CLIENT_SECRET,
+            //        //grant_type:refresh_token
+            //    }, function(err,body,response) {
+            //
+            ////{json: {refresh_token:tokens.refresh_token, client_id: CLIENT_ID, client_secret: CLIENT_SECRET, grant_type:refresh_token}}, function(err,response,body){
+            //        if (err) console.log ("The error: ", err);
+            //        console.log("the response ",response);
+            //        console.log("the body ", body);
+            //    return body;
+            //    });
+
+
+
             oauth2Client.setCredentials({
-                access_token: tokens.access_token,
+                access_token: authToday,
                 id_token: tokens.id_token,
                 refresh_token:tokens.refresh_token
             });
@@ -88,7 +149,7 @@ var update = function() {
                     calendarData = data;
                     console.log("in Calendarfind ", calendarData);
 
-                    getEvents(oauth2Client, calendarData);
+                    getEvents(oauth2Client,calendarData);
                     //getEvents();
                 });
             });
@@ -101,7 +162,7 @@ var update = function() {
             });
 
     };
-    function getEvents(auth, cal) {
+    function getEvents(auth,cal) {
         console.log("in get events");
         calendar.events.list({
             auth:auth,
@@ -126,8 +187,10 @@ var update = function() {
                     var id = event.id;
                     var attendees = event.attendees;
                     console.log(id, '%s - %s', start, event.summary, attendees);
-
-                    console.log("the start day ",start.getDay());
+                    var today = new Date();
+                    var startDate = new Date(start);
+                    console.log("today day ", today.getDay());
+                    console.log("startDate ", startDate);
                 }
             }
             return true;
@@ -153,7 +216,7 @@ var update = function() {
         //    "__v" : 0
         //};
 
-};
+}
 
 //function getEvents(auth, cal) {
 //    console.log("in get events");
