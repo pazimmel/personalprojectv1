@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", ['ngRoute', 'ui.grid', 'ui.grid.edit','angular-google-gapi', 'angularMoment']);
+var myApp = angular.module("myApp", ['ngRoute', 'ui.grid', 'ui.grid.edit','angular-google-gapi', 'angularMoment', "ngMaterial"]);
 
 myApp.run(['GAuth', 'GApi', "$location",
     function(GAuth, GApi, $location) {
