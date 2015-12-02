@@ -30,7 +30,10 @@ span.buttonText {
     /* Use the Roboto font that is loaded in the <head> */
     font-family: 'Roboto', sans-serif;
 }
-.main-nav .setup-nav {
+li {
+    list-style-type: none;
+}
+.main-nav, .setup-nav {
     min-width: 100px;
     text-align: center;
     max-width: 300px;

@@ -22,7 +22,7 @@ var update = function() {
     var CLIENT_ID = "1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com";
     var CLIENT_SECRET = "JnNWn1zLSVLf4kZwwE2XR1eY";
     console.log("in update");
-    var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, "http://localhost:5000");
+    var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, "http://localhost:5000" || "https://whispering-shelf-5691.herokuapp.com");
 
     tokens = {
         "_id" : ("565e47964a52f62b3435961a"),
