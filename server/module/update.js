@@ -93,7 +93,7 @@ var update = function() {
                     if(err) console.log("error:", err);
                     console.log("the body ", body);
                     console.log("body['access_token']" ,body.access_token);
-                    authToday = body
+                    authToday = body;
                     //console.log("the response", response);
                 });
 
@@ -180,19 +180,25 @@ var update = function() {
             if (events.length == 0) {
                 console.log('No upcoming events found.');
             } else {
-                console.log('Upcoming 10 events:');
-                for (var i = 0; i < events.length; i++) {
-                    var event = events[i];
-                    var start = event.start.dateTime || event.start.date;
-                    var id = event.id;
-                    var attendees = event.attendees;
-                    console.log(id, '%s - %s', start, event.summary, attendees);
-                    var today = new Date();
-                    var startDate = new Date(start);
-                    console.log("today day ", today.getDay());
-                    console.log("startDate ", startDate);
+                console.log("event to check ", events[0]);
+                console.log("event id? ", events[0].id);
+                reminder(events[0], cal, auth);
+                //checkEvent(events[0], cal, auth);
+                //console.log('Upcoming 10 events:');
+                //for (var i = 0; i < events.length; i++) {
+                //    var event = events[i];
+                //    var start = event.start.dateTime || event.start.date;
+                //    var id = event.id;
+                //    var attendees = event.attendees;
+                //    console.log(id, '%s - %s', start, event.summary, attendees);
+                    //var game = events[0];
+                    //var gameTime = game.start.dateTime;
+                    //var today = new Date();
+                    //var startDate = new Date(gameTime);
+                    //console.log("today day ", today.getDay());
+                    //console.log("startDate ", startDate.getDay());
                 }
-            }
+
             return true;
         });
     }
@@ -216,7 +222,7 @@ var update = function() {
         //    "__v" : 0
         //};
 
-}
+};
 
 //function getEvents(auth, cal) {
 //    console.log("in get events");
@@ -248,6 +254,66 @@ var update = function() {
 //        return true;
 //    });
 //}
+
+function checkEvent (game, cal, auth){
+    var today = new Date();
+    var gameTime = game.start.dateTime;
+    var gameDate = new Date(gameTime);
+    var gameDay = gameDate.getDay();
+    var todayDay = today.getDay();
+    gameDay -= todayDay;
+    todayDay -= todayDay;
+
+    console.log("todayDay ",todayDay);
+    console.log("gameDay ",gameDay);
+    if (gameDay > 0){
+        if (gameDay <=reminders.second_reminder) {
+            secondReminder(game, cal, auth);
+        } else if (gameDay<=reminders.first_reminder) {
+            firstReminder(game, cal, auth);
+        }
+        if(gameDay <=reminders.attendance_reminder){
+            attendanceReminder(game, cal, auth);
+        }
+    }
+
+
+
+
+}
+
+function reminder(game, cal, auth) {
+    var calendar = google.calendar('v3');
+    calendar.events.update({
+        auth: auth,
+        calendarId: cal.id,
+        eventId: game.id,
+        sendNotifications: true,
+        resource: {
+            start: {
+                dateTime:game.start.dateTime
+            },
+            end: {
+                dateTime:game.end.dateTime
+            },
+            summary: "Game coming soon",
+            attendees: game.attendees,
+            description: "Make sure to RSVP if you haven't. Look forward to seeing y'all there"
+        }
+    }, function(err, response){
+        if (err) {
+            console.log('The API returned an error: ' + err);
+            return err;
+        } else {
+            console.log(response);
+            return true;
+        }
+    })
+}
+
+function attendanceReminder(game,auth,cal){
+
+}
 
 function updateEvents(auth, cal) {
     var calendar = google.calendar('v3');
@@ -286,3 +352,4 @@ update();
 
 //get closest event
     //look at events[0]
+
