@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 var index = require('./routes/index');
 var login = require("./routes/login");
 var team = require('./routes/team');
-
+var mongo = require('./module/mongoose');
 
 
 
@@ -41,26 +41,30 @@ app.use(bodyParser.urlencoded({expanded: true}));
 
 //app.use('/scheduleUpdate', scheduleUpdate);
 
+mongo.mongoURI;
+mongo.mongoDB;
+
 
 app.use('/login', login);
 app.use('/team', team);
 app.use('/', index);
 
-// Mongo Connection //
-var mongoURI = "mongodb://localhost:27017/team_manager";
-//var mongoURI = "";
-
-var mongoDB = mongoose.connect(mongoURI).connection;
-
-mongoDB.on('error', function(err){
-    if(err) console.log("MONGO ERROR: ", err);
-});
-
-mongoDB.once('open', function(){
-    console.log("Connected to Mongo, yo!");
-});
+//// Mongo Connection //
+//var mongoURI = "mongodb://localhost:27017/team_manager";
+////var mongoURI = "";
+//
+//var mongoDB = mongoose.connect(mongoURI).connection;
+//
+//mongoDB.on('error', function(err){
+//    if(err) console.log("MONGO ERROR: ", err);
+//});
+//
+//mongoDB.once('open', function(){
+//    console.log("Connected to Mongo, yo!");
+//});
 
 // Listen //
 app.listen(app.get("port"), function(){
     console.log("Listening on port: " + app.get("port"));
 });
+

@@ -540,7 +540,7 @@ myApp.controller("inputEmailSettingsController", ["$scope", "$http", "$window", 
     $scope.postEmailSettings = function(){
         $http.post('/team/reminder', $scope.calendarSettings).then(function(resp){
             console.log(resp);
-            $scope.setOfflineAccess();
+            //$scope.setOfflineAccess();
             return $scope.calendarSettings;
         },function(){
             console.log("error");
@@ -548,6 +548,8 @@ myApp.controller("inputEmailSettingsController", ["$scope", "$http", "$window", 
     };
     $scope.setOfflineAccess = function(){
         console.log("click offlineAccess");
+        //if you lose refresh token, need to change approval_prompt to force
+        //auth2.grantOfflineAccess({'redirect_uri': 'postmessage', approval_prompt: 'force'}).then($scope.signInCallback);
         auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then($scope.signInCallback);
         return true;
     };

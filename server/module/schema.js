@@ -15,7 +15,7 @@ var Reminder = mongoose.model('Reminder');
 mongoose.model('AuthTokens', new Schema({"access_token": String, "refresh_token": String, "id_token": String}, {collection: 'authtokens'}, {autoIndex: false}));
 var AuthTokens = mongoose.model('AuthTokens');
 
-module.exports.player = Player;
-module.exports.calendar = Calendar;
-module.exports.authtokens = AuthTokens;
-module.exports.reminder = Reminder;
+module.exports.Player = Player;
+module.exports.Calendar = Calendar;
+module.exports.AuthTokens = AuthTokens;
+module.exports.Reminder = Reminder;

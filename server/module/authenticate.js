@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var OAuth2 = google.auth.OAuth2;
 var serverCredentials;
+var schema = require('./schema');
 
 var authenticate = function(code) {
     var CLIENT_ID = "1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com";
@@ -35,19 +36,19 @@ var authenticate = function(code) {
 
             console.log("the server credentials: ",serverCredentials);
 
-            mongoose.model('AuthTokens', new Schema({"access_token": String, "refresh_token": String, "id_token": String}, {collection: 'authtokens'}, {autoIndex: false}));
-            var AuthTokens = mongoose.model('AuthTokens');
+            //mongoose.model('AuthTokens', new Schema({"access_token": String, "refresh_token": String, "id_token": String}, {collection: 'authtokens'}, {autoIndex: false}));
+            //var AuthTokens = mongoose.model('AuthTokens');
 
-            var data = new AuthTokens({access_token: serverCredentials.access_token, id_token:serverCredentials.id_token, refresh_token:serverCredentials.refresh_token});
+            var data = new schema.AuthTokens({access_token: serverCredentials.access_token, id_token:serverCredentials.id_token, refresh_token:serverCredentials.refresh_token});
             data.save(function(err,data){
                 if (err) console.log("Error ", err);
                 console.log("the data from the save ",data);
             });
 
-            console.log("the authTokens: ", AuthTokens);
+            //console.log("the authTokens: ", AuthTokens);
 
 
-            //listEvents(oauth2Client);
+            listEvents(oauth2Client);
             //updateEvents(oauth2Client);
             return serverCredentials;
         }
