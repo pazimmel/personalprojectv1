@@ -5,20 +5,21 @@
     <div ng-include="'/assets/views/templates/setupNav.html'"></div>
 </header>
 <div>
-    <h1>Create New Calendar</h1>
-    <form id = "scheduleInput" class="centered flex-offset-25">
-        <div class = "new-calendar" layout="row" layout-align="space-between-center">
-            <md-input-container class = new-calendar-input>
+
+    <form id = "scheduleInput" layout = "row" flex-offset="15" class = "centered-schedule">
+        <div class = "new-calendar" layout-align="left">
+            <h1>Create New Calendar</h1>
+            <md-input-container class = "new-calendar-input" flex-offset="25">
                 <!--<div class = "create-calendar" layout="row">-->
                 <label>Calendar Name</label>
-                <input type = "text" ng-model="newCalendar.summary">
+                <input class = "new-game-input" type = "text" ng-model="newCalendar.summary">
                 <!--</div>-->
             </md-input-container>
             <md-button class="md-raised" ng-click = createCalendar()>Create New Calendar</md-button>
         </div>
 
 
-        <div class = "create-schedule">
+        <div class = "create-schedule" layout-align="right">
             <h1>Input Schedule</h1>
 
                 <label>Calendar Name</label>
@@ -37,21 +38,21 @@
                 <label for = "newGame">New Game</label>
                 <input type = "datetime-local" ng-model = "newGame.date" id = "newGame">
             </div>
-            <div layout-align="center">
-                <md-input-container layout-align="center" class="location" flex-offset="25">
-                    <i class="material-icons">add_location</i>
+            <div layout-align="center" layout="row" class="location" flex-offset="25">
+                <i class="material-icons">add_location</i>
+                <md-input-container layout-align="center">
                     <label>Enter Location</label>
                     <input type = "text" ng-model = "newGame.location">
+
                 </md-input-container>
             </div>
-
-
-            <input type = "submit" value = "submit" ng-click = "inputGame(newGame)">
-            <input type = "submit" value = "Schedule Complete" ng-click = "scheduleComplete()">
+            <div class = "submit-buttons">
+                <md-button class="md-raised md-primary" ng-click = "inputGame(newGame)">Submit Game</md-button>
+                <!--<input type = "submit" value = "submit" ng-click = "inputGame(newGame)">-->
+                <md-button class="md-raised" ng-click = "scheduleComplete()">Schedule Complete</md-button>
+                <!--<input type = "submit" value = "Schedule Complete" ng-click = "scheduleComplete()">-->
+            </div>
         </div>
-
-
-
     </form>
 
     <div class = "schedule-display">
