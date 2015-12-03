@@ -37,29 +37,38 @@ li {
 h1 {
     text-align: center;
 }
-.main-nav{
+.main-nav, .setup-nav{
+    width:45%;
     text-align: center;
-    padding:5px;
-    float: left;
-    min-width: 400px;
 }
-
+.main-nav{
+    float:left;
+}
+.centered {
+    text-align: center;
+    width:50%;
+}
 .logout {
     margin: auto;
     margin-left: 10px;
 }
 
-.setup-nav {
-    min-width: 100px;
-    text-align: center;
+
+#teamInput{
     max-width: 500px;
+    min-width: 100px;
+}
+
+.submit-buttons {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.roster-display {
+    width: 800px;
+    margin: 0 auto;
 }
 .grid {
     width:800px;
     height: auto;
     text-align: center;
-}
-#teamInput{
-    max-width: 500px;
-    min-width: 100px;
 }

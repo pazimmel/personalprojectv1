@@ -5,17 +5,24 @@
     <div ng-include="'/assets/views/templates/setupNav.html'"></div>
 </header>
 <div>
-    <form id = "scheduleInput">
-        <div class = "create-calendar"> <h1>Create New Calendar</h1>
-            <label for = "calendarName">Calendar Name</label>
-            <input type = "text" id = "calendarName" ng-model="newCalendar.summary" placeholder="Enter Calendar Name Here">
-            <input type = "submit" value = "Create New Calendar" ng-click = createCalendar()>
-        </div>
+    <h1>Create New Calendar</h1>
+    <form id = "scheduleInput" class="centered flex-offset-25">
+        <md-input-container>
+            <!--<div class = "create-calendar" layout="row">-->
+                <label>Calendar Name</label>
+                <input type = "text" ng-model="newCalendar.summary">
+            <!--</div>-->
+        </md-input-container>
+        <md-button class="md-raised" ng-click = createCalendar()>Create New Calendar</md-button>
+
         <div class = "create-schedule">
             <h1>Input Schedule</h1>
-            <label>Calendar Name</label>
-            <select ng-model = "selectedCalendar.calendar" ng-options="calendar.summary for calendar in currentCalendars"
-                    ng-change="getEvents(selectedCalendar.calendar)"></select>
+            <md-input-container>
+                <label>Calendar Name</label>
+                <select ng-model = "selectedCalendar.calendar" ng-options="calendar.summary for calendar in currentCalendars"
+                        ng-change="getEvents(selectedCalendar.calendar)"></select>
+            </md-input-container>
+
             <label for = "newGame">New Game</label>
             <input type = "datetime-local" ng-model = "newGame.date" id = "newGame">
             <label for = "gameLocation">Location</label>
