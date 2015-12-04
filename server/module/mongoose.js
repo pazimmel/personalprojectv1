@@ -9,6 +9,7 @@ var mongoDB = mongoose.connect(mongoURI).connection;
 
 mongoDB.on('error', function(err){
     if(err) console.log("MONGO ERROR: ", err);
+    console.log("connected to Mongo!");
 });
 
 module.exports.mongoDB = mongoDB;

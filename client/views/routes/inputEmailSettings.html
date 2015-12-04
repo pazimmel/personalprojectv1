@@ -1,41 +1,50 @@
 <header>
-    <div ng-include="'/assets/views/templates/nav.html'"></div>
-    <div ng-include="'/assets/views/templates/account.html'"></div>
+    <div class="main-nav-headers">
+        <img class="image-thumbnail" src = "/assets/styles/images/TeamManagerZ-logo-small.png"/>
+        <div ng-include="'/assets/views/templates/nav.html'"></div>
+        <div ng-include="'/assets/views/templates/account.html'"></div>
+    </div>
     <h1>Team Zeta Setup</h1>
     <div ng-include="'/assets/views/templates/setupNav.html'"></div>
 </header>
 <div class ="notification-settings">
-    <div class = "team-notification">
-        <h1>Game Reminders</h1>
-        <div class = "first-reminder">
-            <p><span>
+    <div layout="row">
+        <div class = "team-notification" layout-align="left">
+            <h1>Game Reminders</h1>
+            <div class = "first-reminder">
+                <p><span>
                 Send first game reminder
                 <select name ="first-reminder" ng-model = 'reminders.first_reminder' ng-options='number for number in days'></select>
                 days before the game.
             </span></p>
-        </div>
+            </div>
 
-        <div class = second-reminder>
-            <p><span>
+            <div class = second-reminder>
+                <p><span>
                 Send second game reminder
                 <select name ="second-reminder" ng-model = 'reminders.second_reminder' ng-options='number for number in days'></select>
                 days before the game.
             </span></p>
+            </div>
         </div>
-    </div>
-    <div class = "manager-notifications">
-        <h1>Attendance Reminder</h1>
-        <p><span>
+        <div class = "manager-notifications" layout-align="right">
+            <h1>Attendance Reminder</h1>
+            <p><span>
             Send manager attendance update
             <select name ="attendance-update" ng-model = "reminders.attendance_reminder" ng-options ="number for number in days"></select>
             days before the game.
         </span></p>
+        </div>
     </div>
+
     <div class = "submit-buttons">
-        <input type = "submit" value = "Submit Settings" ng-click = "inputEmailSettings(reminders)">
-        <input type = "submit" value = "Set Offline Access" ng-click="setOfflineAccess()">
+        <md-button class="md-raised" ng-click = "inputEmailSettings(reminders)">Save Settings</md-button>
+        <!--<input type = "submit" value = "Submit Settings" ng-click = "inputEmailSettings(reminders)">-->
+        <md-button class="md-raised" ng-click = "setOfflineAccess()">Set Offline Access</md-button>
+        <!--<input type = "submit" value = "Set Offline Access" ng-click="setOfflineAccess()">-->
         <!--<input type = "submit" value = "Settings Complete" ng-click = "emailSettingsComplete()">-->
-        <input type = "submit" value = "START SEASON" ng-click = "startSeason()">
+        <md-button class="md-raised" ng-click = "startSeason()">START SEASON</md-button>
+        <!--<input type = "submit" value = "START SEASON" ng-click = "startSeason()">-->
 
     </div>
 

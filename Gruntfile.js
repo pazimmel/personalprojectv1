@@ -118,6 +118,12 @@ module.exports = function(grunt){
                     "styles/style.css"
                 ],
                 "dest": "server/public/assets/"
+            },
+            images: {
+                expand:true,
+                cwd:"client/styles/images",
+                src: "*.png",
+                dest:"server/public/assets/styles/images"
             }
         }
     });

@@ -1,3 +1,42 @@
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+body {
+    background-color: #6AC3C7;
+}
+.main-nav-headers {
+    background-color: #F04C40;
+    box-shadow: 3px 3px 5px 6px #003058;
+    height: 150px;
+}
+.empty {
+    height: 50px;
+}
+.login-logo {
+    border-radius: 2px;
+    margin: 50px 20px;
+}
+
+.manager-login {
+    margin: 0 auto;
+    text-align: center;
+    border: solid 1px;
+    border-radius: 10px;
+    width: 400px;
+    height:500px;
+    background-color: #F04C40;
+;
+}
 #customBtn {
     display: inline-block;
     background: #4285f4;
@@ -34,15 +73,29 @@ li {
     list-style-type: none;
     margin-left:10px
 }
+
+a:hover{
+    color: #F89B94;
+    /*box-shadow: 3px 3px 5px 6px #003058;*/
+}
 h1 {
     text-align: center;
 }
-.main-nav, .setup-nav{
-    width:45%;
+.image-thumbnail{
+    /*display: inline-block;*/
+    /*float:left;*/
+}
+md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
+    background-color: transparent;
+}
+.main-nav , .setup-nav {
+
+    width:350px;
     text-align: center;
+    background-color: transparent;
 }
 .main-nav{
-    float:left;
+    /*margin: 50px 100px 10px 100px;*/
 }
 .centered {
     text-align: center;
@@ -57,10 +110,22 @@ h1 {
     margin-left: 10px;
 }
 
-
+.input-with-roster{
+    width: 1000px;
+    margin: 0 auto;
+}
+.player-input {
+    width:450px;
+    margin-right:25px;
+    border: solid 1px;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 5px 6px #003058;
+}
 #teamInput{
-    max-width: 500px;
-    min-width: 100px;
+    max-width: 400px;
+    min-width: 200px;
+    margin: 0 auto;
+
 }
 
 .submit-buttons {
@@ -68,19 +133,33 @@ h1 {
     margin-bottom: 30px;
 }
 .roster-display {
-    width: 800px;
-    margin: 0 auto;
+    width: 500px;
+    margin-left: 25px;
+    border: solid 1px;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 5px 6px #003058;
+}
+.roster-grid{
+    width:450px;
+    height:auto;
+    text-align: center;
+    margin:0 auto;
 }
 .grid {
     width:800px;
     height: auto;
     text-align: center;
 }
+
+#scheduleInput {
+    margin: 0 auto;
+}
 .new-calendar {
     width:360px;
     margin-right:20px;
     border: 1px solid;
     box-sizing: border-box;
+    background-color: #454856;
 }
 
 .create-schedule {
@@ -88,14 +167,16 @@ h1 {
     margin-left: 20px;
     border: 1px solid;
     box-sizing: border-box;
-
+    background-color: #454856;
 }
 .new-game-input {
-    margin-top: 3px;
+    width: 180px;
+    margin-left: 5px;
 }
 .new-calendar-input {
     width: 50%;
-    margin-bottom: 80px;
+    margin: 0 auto;
+    margin-bottom: 70px;
 }
 
 .game-datetime {
@@ -107,6 +188,52 @@ h1 {
 .location {
     height: 40px;
     width: 50%;
+}
+.schedule-display {
+    width: 800px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.table {
+    margin-top: 10px;
+}
+
+.notification-settings {
+    width: 800px;
+    margin: 0 auto;
+}
+.team-notification {
+    width: 360px;
+    margin-right:20px;
+}
+.manager-notifications {
+    width: 360px;
+    margin-left: 20px;
+}
+
+.attendance-schedule {
+    width: 1000px;
+    margin: 0 auto;
+}
+.attendance-grid {
+    width: 500px;
+    height:400px;
+    margin-right: 25px;
+}
+.schedule-grid {
+    width:400px;
+    height:800px;
+    margin-left:25px;
+}
+.attendance-header {
+    width:320px;
+}
+.invite {
+ margin-left: 30px;
+}
+.schedule-header {
+    margin-bottom: 60px;
 }
 /*.md-datepicker-calendar, .md-datepicker-input-mask-opaque {*/
     /*background: rgb(255,255,255);*/

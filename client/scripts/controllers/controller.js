@@ -61,6 +61,19 @@ myApp.controller("loginController", ["$scope", "$http", "GAuth", '$location', fu
     //    }
     //};
 }]);
+///////////////////////////////
+///Navigation Controller////////
+////////////////////////////
+myApp.controller('NavController', ['$scope','$location', function($scope, $location){
+    $scope.isActive = function (viewLocation) {
+        console.log("in the isActive function ", $location.path());
+        return viewLocation === $location.path();
+    };
+
+    //$scope.go = function ( path ) {
+    //    $location.path( path );
+    //};
+}]);
 
 /////////////////////////
 //ATTENDANCE CONTROLLER//
@@ -73,6 +86,7 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
     $scope.attendance = {};
     $scope.schedule = {};
     $scope.currentCalendars = {};
+        //$scope.compareArray = [];
     $scope.selectedCalendar = {};
     $scope.selected = {};
         $scope.eventsData = [];
@@ -92,8 +106,8 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
             {field: "start.dateTime", visible: false, sort: {direction: uiGridConstants.ASC,
                 priority: 0}
             },
-            {field: "summary", name: "Event"},
-            {field: "display_date", name: "Date"},
+            {field: "summary", name: "Event", visible: false},
+            {field: "schedule_date", name: "Date"},
             {field: "display_start", name: "Time"},
             {field: "location", name: "Location"},
             {name: 'attendance', displayName: 'Attendance', cellTemplate: '<button id="attendanceBtn" type="button" ' +
@@ -107,6 +121,10 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
             console.log("result from getCalendars, ",$scope.currentCalendars);
             console.log("currentCalendars id, ", $scope.currentCalendars[0].id);
             if(!$scope.selectedCalendar.calendar){
+                //$scope.today = new Date();
+                //for(var i = 0; i<$scope.currentCalendars.length; i ++){
+                //    $scope.compareArray.push({i:$scope.currentCalendars[i].start.dateTime});
+                //}
 
                 $scope.selectedCalendar.calendar = $scope.currentCalendars[0];
                 $scope.getEvents($scope.currentCalendars[0]);
@@ -120,8 +138,18 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
     };
 
     $scope.getEvents = function(calendar){
+        console.log("in getEvents");
+        $scope.calendarToGet = {
+            calendarId: calendar.id,
+            timeMin: (new Date()).toISOString(),
+            maxResults: 20,
+            singleEvents: true,
+            orderBy: 'startTime'
+        };
+
         //console.log("$scope.selected.game ",$scope.selected.game);
-        GApi.executeAuth('calendar', 'events.list', {calendarId: calendar.id}).then(function(resp){
+        GApi.executeAuth('calendar', 'events.list', $scope.calendarToGet).then(function(resp){
+        //GApi.executeAuth('calendar', 'events.list', {calendarId: calendar.id}).then(function(resp){
             //console.log("resp.items ",resp.items);
 
             //console.log("calendar.calendarID, ",$scope.selectedCalendar.calendarId);
@@ -130,7 +158,7 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
             //console.log("in the managerService, ",$scope.managerService.getCalendarId());
 
             $scope.gridOptions2.data = resp.items;
-            //console.log("gridOptions2.data ",$scope.gridOptions2.data);
+            console.log("gridOptions2.data ",$scope.gridOptions2.data);
 
             for(var i =0;i<$scope.gridOptions2.data.length;i++){
 
@@ -138,6 +166,7 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
                 //$scope.game.date = moment($scope.gridOptions2.data[i].start.dateTime).fromNow(true);
                 //console.log($scope.game.date);
                 //console.log("the difference in time?, ",$scope.now.date.diff($scope.gridOptions2.data[i].start.dateTime));
+                $scope.gridOptions2.data[i].schedule_date = $filter('date')($scope.gridOptions2.data[i].start.dateTime,'shortDate');
                 $scope.gridOptions2.data[i].display_date = $filter('date')($scope.gridOptions2.data[i].start.dateTime,'EEEE, MMM d');
                 $scope.gridOptions2.data[i].display_start = $filter('date')($scope.gridOptions2.data[i].start.dateTime,'shortTime');
 
@@ -229,6 +258,7 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
 //////////////////////////
 myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", "GAuth", function($scope, $http, ManagerService, GAuth){
     $scope.newPlayer = {};
+    $scope.newPlayer.type = "player";
     $scope.playerArray = [];
     $scope.gridOptions = {};
     $scope.managerService = ManagerService;
@@ -253,8 +283,9 @@ myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", "G
 
 
     $scope.inputPlayer = function(newPlayer){
+        console.log("newPLayer ",newPlayer);
         $http.post('/team/roster', newPlayer).then(function(response){
-            console.log(response);
+            console.log("teh response ",response);
             $scope.refreshGrid();
         });
     };
@@ -291,7 +322,9 @@ myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", "G
 ///////////////////////////////
 //SCHEDULE CONTROLLER////////////
 /////////////////////////////////
-myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment', 'ManagerService',"$filter", function($scope, $http, GApi, moment, ManagerService, $filter){
+myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment', 'ManagerService',"$filter", "uiGridConstants",
+    function($scope, $http, GApi, moment, ManagerService, $filter, uiGridConstants){
+
     $scope.gridOptions = {};
     $scope.newGame = {};
     $scope.newCalendar = {};
@@ -307,9 +340,12 @@ myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment',
 
     $scope.gridOptions = {
         columnDefs: [
+            {field: "start.dateTime", visible: false, sort: {direction: uiGridConstants.ASC,
+                priority: 0}
+            },
             {field: "summary", name: "Event"},
-            {field: "date", name: "Date"},
-            {field: "start", name: "Time"},
+            {field: "display_date", name: "Date"},
+            {field: "display_start", name: "Time"},
             {field: "location", name: "Location"},
             {name: 'delete', displayName: 'Delete', cellTemplate: '<button id="deleteBtn" type="button" ' +
             'class="btn-small" ng-click="grid.appScope.deleteEvent(row.entity)">Delete</button> '}
@@ -367,8 +403,10 @@ myApp.controller("inputScheduleController", ["$scope", "$http", 'GApi','moment',
             $scope.gridOptions.data = resp.items;
 
             for(var i =0;i<$scope.gridOptions.data.length;i++){
-                $scope.gridOptions.data[i].date = $filter('date')($scope.gridOptions.data[i].start.dateTime,'EEE, MMM d');
-                $scope.gridOptions.data[i].start = $filter('date')($scope.gridOptions.data[i].start.dateTime,'shortTime');
+                //$scope.gridOptions.data[i].date = $filter('date')($scope.gridOptions.data[i].start.dateTime,'EEE, MMM d');
+                //$scope.gridOptions.data[i].start = $filter('date')($scope.gridOptions.data[i].start.dateTime,'shortTime');
+                $scope.gridOptions.data[i].display_date = $filter('date')($scope.gridOptions.data[i].start.dateTime,'EEEE, MMM d');
+                $scope.gridOptions.data[i].display_start = $filter('date')($scope.gridOptions.data[i].start.dateTime,'shortTime');
             }
 
             //$filter('date')($scope.gridOptions.data.start.dateTime, "mediumTime");

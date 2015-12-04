@@ -4,11 +4,19 @@
         <!--<li><a href="#playerAttendance">Player Attendance</a></li>-->
     <!--</md-toolbar>-->
 <!--</div>-->
-<div class = "main-nav" layout-align="center" flex-offset="25">
+<div class = "main-nav" layout-align="center" ng-controller="NavController">
     <md-toolbar class = "md-menu-toolbar">
-        <ul layout-align="center" layout = "row">
-            <li><a href="#inputTeam">Input Info</a></li>
-            <li><a href="#playerAttendance">Player Attendance</a></li>
+        <ul layout = "row">
+            <li><a href="#inputTeam" ng-class="{ 'md-accent': isActive('/inputTeam')}" class="" >Input Info</a></li>
+            <li><a href="#playerAttendance" ng-class="{ 'md-accent': isActive('/playerAttendance')}" class="">Player Attendance</a></li>
         </ul>
     </md-toolbar>
 </div>
+<!--<div class="" ng-controller="NavController">-->
+    <!--<md-button ng-click="go('/dashboard')" ng-class="{ 'md-accent': isActive('/dashboard')}" class="">Dashboard</md-button>-->
+    <!--<md-button ng-click="go('/dailydata')" ng-class="{ 'md-accent': isActive('/dailydata')}" class="">Daily Data</md-button>-->
+    <!--<md-button ng-click="go('/medications')" ng-class="{ 'md-accent': isActive('/medications')}" class="">Medications</md-button>-->
+    <!--<md-button ng-click="go('/conditions')" ng-class="{ 'md-accent': isActive('/conditions')}" class="">Conditions</md-button>-->
+<!--</div>-->
+
+<!--</div>-->
