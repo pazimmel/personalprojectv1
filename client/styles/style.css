@@ -105,6 +105,9 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
     width:800px;
     text-align: center;
 }
+.account {
+    margin-right: 20px;
+}
 .logout {
     margin: auto;
     margin-left: 10px;
@@ -149,6 +152,7 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
     width:800px;
     height: auto;
     text-align: center;
+    box-shadow: 3px 3px 5px 6px #003058;
 }
 
 #scheduleInput {
@@ -159,7 +163,8 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
     margin-right:20px;
     border: 1px solid;
     box-sizing: border-box;
-    background-color: #454856;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 5px 6px #003058;
 }
 
 .create-schedule {
@@ -167,7 +172,8 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
     margin-left: 20px;
     border: 1px solid;
     box-sizing: border-box;
-    background-color: #454856;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 5px 6px #003058;
 }
 .new-game-input {
     width: 180px;
