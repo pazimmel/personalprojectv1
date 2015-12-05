@@ -4,12 +4,15 @@
         <div ng-include="'/assets/views/templates/nav.html'"></div>
         <div ng-include="'/assets/views/templates/account.html'"></div>
     </div>
-    <h1>Team Zeta Setup</h1>
+    <div class = "team-name">
+        <h1>Team Zeta Setup</h1>
+    </div>
+
     <div ng-include="'/assets/views/templates/setupNav.html'"></div>
 </header>
 <div class ="notification-settings">
-    <div layout="row">
-        <div class = "team-notification" layout-align="left">
+    <div layout="row" layout-align="space-between">
+        <div class = "team-notification">
             <h1>Game Reminders</h1>
             <div class = "first-reminder">
                 <p><span>
@@ -27,7 +30,7 @@
             </span></p>
             </div>
         </div>
-        <div class = "manager-notifications" layout-align="right">
+        <div class = "manager-notifications">
             <h1>Attendance Reminder</h1>
             <p><span>
             Send manager attendance update
@@ -38,12 +41,12 @@
     </div>
 
     <div class = "submit-buttons">
-        <md-button class="md-raised" ng-click = "inputEmailSettings(reminders)">Save Settings</md-button>
+        <md-button class="md-raised buttons" ng-click = "inputEmailSettings(reminders)">Save Settings</md-button>
         <!--<input type = "submit" value = "Submit Settings" ng-click = "inputEmailSettings(reminders)">-->
-        <md-button class="md-raised" ng-click = "setOfflineAccess()">Set Offline Access</md-button>
+        <md-button class="md-raised buttons" ng-click = "setOfflineAccess()">Set Offline Access</md-button>
         <!--<input type = "submit" value = "Set Offline Access" ng-click="setOfflineAccess()">-->
         <!--<input type = "submit" value = "Settings Complete" ng-click = "emailSettingsComplete()">-->
-        <md-button class="md-raised" ng-click = "startSeason()">START SEASON</md-button>
+        <md-button class="md-raised buttons" ng-click = "startSeason()">START SEASON</md-button>
         <!--<input type = "submit" value = "START SEASON" ng-click = "startSeason()">-->
 
     </div>

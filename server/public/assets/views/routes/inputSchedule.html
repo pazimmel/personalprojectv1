@@ -4,7 +4,10 @@
         <div ng-include="'/assets/views/templates/nav.html'"></div>
         <div ng-include="'/assets/views/templates/account.html'"></div>
     </div>
-    <h1>Team Zeta Setup</h1>
+    <div class = "team-name">
+        <h1>Team Zeta Setup</h1>
+    </div>
+
     <div ng-include="'/assets/views/templates/setupNav.html'"></div>
 </header>
 <div>
@@ -18,7 +21,7 @@
                 <input type = "text" ng-model="newCalendar.summary">
                 <!--</div>-->
             </md-input-container>
-            <md-button class="md-raised" ng-click = createCalendar()>Create New Calendar</md-button>
+            <md-button class="md-raised buttons" ng-click = createCalendar()>Create New Calendar</md-button>
         </div>
 
 
@@ -43,9 +46,9 @@
                 </md-input-container>
             </div>
             <div class = "submit-buttons">
-                <md-button class="md-raised md-primary" ng-click = "inputGame(newGame)">Submit Game</md-button>
+                <md-button class="md-raised buttons" ng-click = "inputGame(newGame)">Submit Game</md-button>
                 <!--<input type = "submit" value = "submit" ng-click = "inputGame(newGame)">-->
-                <md-button class="md-raised" ng-click = "scheduleComplete()">Schedule Complete</md-button>
+                <md-button class="md-raised buttons" ng-click = "scheduleComplete()">Schedule Complete</md-button>
                 <!--<input type = "submit" value = "Schedule Complete" ng-click = "scheduleComplete()">-->
             </div>
         </div>

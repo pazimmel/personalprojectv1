@@ -11,6 +11,7 @@
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
 /* close commented backslash hack */
+
 body {
     background-color: #6AC3C7;
 }
@@ -35,6 +36,7 @@ body {
     width: 400px;
     height:500px;
     background-color: #F04C40;
+    box-shadow: 3px 3px 5px 6px #003058
 ;
 }
 #customBtn {
@@ -73,6 +75,10 @@ li {
     list-style-type: none;
     margin-left:10px
 }
+a {
+    text-decoration: none;
+    color: black;
+}
 
 a:hover{
     color: #F89B94;
@@ -81,6 +87,10 @@ a:hover{
 h1 {
     text-align: center;
 }
+.a.md-button.md-default-theme.md-raised, a.md-button.md-raised, .md-button.md-default-theme.md-raised, .md-button.md-raised {
+    background-color: #6A3052;
+    color: whitesmoke;
+}
 .image-thumbnail{
     /*display: inline-block;*/
     /*float:left;*/
@@ -88,7 +98,7 @@ h1 {
 md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
     background-color: transparent;
 }
-.main-nav , .setup-nav {
+.main-nav {
 
     width:350px;
     text-align: center;
@@ -97,9 +107,12 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
 .main-nav{
     /*margin: 50px 100px 10px 100px;*/
 }
-.centered {
+.setup-nav {
     text-align: center;
-    width:50%;
+    color:transparent;
+}
+.team-name {
+    text-shadow: 2px 1px #8D2663;
 }
 .centered-schedule {
     width:800px;
@@ -130,6 +143,12 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
     margin: 0 auto;
 
 }
+md-radio-button.md-default-theme.md-checked, md-radio-button.md-checked .md-off {
+    border-color: #8D2663
+}
+md-radio-button.md-default-theme, md-radio-button .md-on {
+    background-color: #8D2663;
+}
 
 .submit-buttons {
     margin-top: 10px;
@@ -159,7 +178,7 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
     margin: 0 auto;
 }
 .new-calendar {
-    width:360px;
+    width:380px;
     margin-right:20px;
     border: 1px solid;
     box-sizing: border-box;
@@ -168,7 +187,7 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
 }
 
 .create-schedule {
-    width:360px;
+    width:380px;
     margin-left: 20px;
     border: 1px solid;
     box-sizing: border-box;
@@ -176,7 +195,7 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
     box-shadow: 3px 3px 5px 6px #003058;
 }
 .new-game-input {
-    width: 180px;
+    width: 200px;
     margin-left: 5px;
 }
 .new-calendar-input {
@@ -208,14 +227,23 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
 .notification-settings {
     width: 800px;
     margin: 0 auto;
+    border: 1px solid;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 5px 6px #003058;
 }
 .team-notification {
     width: 360px;
-    margin-right:20px;
+    padding-left: 10px;
 }
 .manager-notifications {
     width: 360px;
-    margin-left: 20px;
+}
+
+.attendance, .schedule{
+    border: 1px solid;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 5px 6px #003058;
 }
 
 .attendance-schedule {
@@ -224,13 +252,14 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
 }
 .attendance-grid {
     width: 500px;
-    height:400px;
-    margin-right: 25px;
+    height:300px;
+    /*margin-right: 25px;*/
 }
+
 .schedule-grid {
     width:400px;
-    height:800px;
-    margin-left:25px;
+    height:300px;
+    /*margin-left:25px;*/
 }
 .attendance-header {
     width:320px;

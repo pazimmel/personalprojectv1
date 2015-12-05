@@ -6,28 +6,34 @@
         <div ng-include="'/assets/views/templates/account.html'"></div>
 
     </div>
+    <div layout = "column" layout-align="center center">
+        <div class = "team-name"><h1>Team Zeta</h1></div>
 
-    <h1>Team Zeta</h1>
-    <h2>Upcoming game at {{selected.display_date}} {{selected.display_start}}</h2>
+        <h2>Upcoming Game  {{selected.display_date}} {{selected.display_start}}</h2>
+    </div>
+
 </header>
-<div class = "attendance-schedule" layout = "row" layout-sm = "column">
+<div class = "attendance-schedule" layout = "row" layout-sm = "column" layout-align="space-between">
     <div class = "attendance">
         <h1>Attendance</h1>
         <div class = "invite" layout = "row">
             <h2 class = "attendance-header">{{selected.display_date}} {{selected.display_start}}</h2>
-            <md-button layout-align="right" class="md-raised invite" ng-click = "inviteSubs()">Invite Subs</md-button>
+            <md-button layout-align="right" class="md-raised invite buttons" ng-click = "inviteSubs()">Invite Subs</md-button>
         </div>
 
         <!--<input type = "submit" value = "Invite Subs" ng-click = "inviteSubs()">-->
-        <div class = "attendance-grid" ui-grid = "gridOptions1" ui-grid-edit ui-grid-row-edit>
+        <div class = "attendance-grid" ui-grid = "gridOptions1" ui-grid-edit ui-grid-row-edit ui-grid-auto-resize>
             <!-- insert a table here-->
         </div>
     </div>
     <div class = "schedule">
         <h1 class = "schedule-header">Schedule</h1>
-        <!--<label>Calendar Name</label>-->
-        <select class = "schedule-dropdown" ng-model = "selectedCalendar.calendar" ng-options="calendar.summary for calendar in currentCalendars"
-                ng-change="getEvents(selectedCalendar.calendar)"></select>
+        <div layout="row" layout-align="space-around end">
+            <label>Select Calendar</label>
+            <select class = "schedule-dropdown" ng-model = "selectedCalendar.calendar" ng-options="calendar.summary for calendar in currentCalendars"
+                    ng-change="getEvents(selectedCalendar.calendar)"></select>
+        </div>
+
         <div class = "table">
             <div class = "schedule-grid" ui-grid = "gridOptions2" ui-grid-edit ui-grid-row-edit>
                 <!-- insert a table here-->

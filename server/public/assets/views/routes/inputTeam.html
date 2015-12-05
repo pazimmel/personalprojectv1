@@ -5,7 +5,7 @@
             <div ng-include="'/assets/views/templates/nav.html'"></div>
             <div ng-include="'/assets/views/templates/account.html'"></div>
         </div>
-        <div class ="centered flex-offset-25" layout-align="center"><h1>Team Setup</h1></div>
+        <div class = "team-name" layout-align="center"><h1>Team Zeta Setup</h1></div>
 
         <div ng-include="'/assets/views/templates/setupNav.html'"></div>
     </header>
@@ -32,9 +32,9 @@
 
                 </md-radio-group>
                 <div class = "submit-buttons" layout-align="right">
-                    <md-button class="md-raised md-primary" ng-click = "inputPlayer(newPlayer)">Submit Player</md-button>
+                    <md-button class="md-raised buttons" ng-click = "inputPlayer(newPlayer)">Submit Player</md-button>
                     <!--<input type = "submit" value = "Submit Player" ng-click = "inputPlayer(newPlayer)">-->
-                    <md-button class="md-raised" ng-click = "rosterComplete()">Roster Complete</md-button>
+                    <md-button class="md-raised buttons" ng-click = "rosterComplete()">Roster Complete</md-button>
                     <!--<input type = "submit" value = "Roster Complete" ng-click = "rosterComplete()">-->
                 </div>
             </form>
@@ -44,7 +44,7 @@
             <div class = "roster-display">
                 <div><h1>Roster</h1></div>
                 <div class = "table roster">
-                    <div class = "roster-grid" ui-grid = "gridOptions" ui-grid-edit ui-grid-row-edit>
+                    <div class = "roster-grid" ui-grid = "gridOptions" ui-grid-auto-resize ui-grid-edit ui-grid-row-edit>
                         <!-- insert a table here-->
                     </div>
                 </div>
