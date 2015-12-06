@@ -20,6 +20,7 @@ var authToday;
 
 mongo.mongoDB;
 mongo.mongoURI;
+console.log("hello");
 //// Mongo Connection //
 //var mongoURI = "mongodb://localhost:27017/team_manager";
 ////var mongoURI = "";
@@ -35,64 +36,53 @@ mongo.mongoURI;
 //});
 
 var update = function() {
+    console.log("in update");
     var CLIENT_ID = "1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com";
     var CLIENT_SECRET = "JnNWn1zLSVLf4kZwwE2XR1eY";
     console.log("in update");
     var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, "http://localhost:5000" || "https://whispering-shelf-5691.herokuapp.com");
 
-    //request.post({url:'http://service.com/upload', form: {key:'value'}}, function(err,httpResponse,body){ /* ... */ })
-    //request.post({url:'https://www.googleapis.com/oauth2/v3/token'},
-    //    {refresh_token:tokens.refresh_token, client_id: CLIENT_ID, client_secret: CLIENT_SECRET, grant_type:refresh_token}, function(err,response,body){
-    //        console.log("the response ",response);
-    //        console.log("the body ", body);
-    //    });
-    //mongoose.model('AuthTokens', new Schema({"access_token": String, "refresh_token": String, "id_token": String}, {collection: 'authtokens'}, {autoIndex: false}));
-    //var AuthTokens = mongoose.model('AuthTokens');
-    //
-    //mongoose.model('Reminder', new Schema({"first_reminder": Number, "second_reminder": Number, "attendance_reminder": Number, "calendarId": String},
-    //    {collection: "reminder"}, {autoIndex: false}));
-    //var Reminder = mongoose.model('Reminder');
 
-
-
-    //var accessDatabase = function(){
-        //console.log("before Authtokens");
-    //mongoDB calls not working here//
-        //AuthTokens.find({}, function(err,data){
-           // console.log("hi");
-
-    var accessDatabase = function() {
+    var accessDatabase = function () {
         console.log("in accessDB");
 
         //var promise1 = schema.AuthTokens.findById('565e47964a52f62b3435961a', function (err, data) {
         //    if (err) console.log("Error: ", err);
         //    tokens = data;
-            tokens = {
-                "_id" : ObjectId("565dfa5d2ecc35b32cf7162f"),
-                //"access_token" : "ya29.PQKCMYNkZjE1V_C36HlrpLC829yd6bUUlfVQ5Q_vaCfSeFpDwsrvZHgwLTs8rM87u_TDuQ",
-                "access_token" :"ya29.QgKCB8ANh_LGZkbzyjuJ5GFlyLo-1_H8tSFakgFsUnKGsqkimpTIoawqwoUib1Zl2re_gQ",
-                "id_token" : "eyJhbGciOiJSUzI1NiIsImtpZCI6ImUzZGQzYTZmOGQ0MjlkMWMwNmNlNjAxOTliZmZkZDBiYWI0ZGUzNGUifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXRfaGFzaCI6IjlvYTZ6YVpoMUV1TXFCV3A4bC1MNWciLCJhdWQiOiIxMDE0NTQ1MjUxOTAwLWFuYWIyMGhrZ2ljYjMwZ3BzZ3U3cTd2YjQ3cG5yMzI2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE3MDMzNjE0NjA2OTIwNDM1MDc5IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF6cCI6IjEwMTQ1NDUyNTE5MDAtYW5hYjIwaGtnaWNiMzBncHNndTdxN3ZiNDdwbnIzMjYuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJlbWFpbCI6InBhemltbWVsQGdtYWlsLmNvbSIsImlhdCI6MTQ0ODk5OTUxMiwiZXhwIjoxNDQ5MDAzMTEyfQ.ue1s6JWo58hJ6A9UPb8sFu87wZMpWTbCkyPgAzj2gf0e_TSNuZXklbmIs_A3ofWnUUnSTWCSDjV2verIJXWU3dYJ03l7HvmBm-zhSPT9dVxS26EXnAXB8Sq1awQhULYkExXbWCtlsRrHdc2L08j30usNR1hbOu5Mz8lnb35WgkyuQdkPSg0euqrICfUaklzg75q03Z9_6K9i8wAZ7Om6FS0-z1aA6nk0aiShD0R8Bgm6IgoCP1nKs8DUHAF0wdWeo0VWE_wGXd_I84EzzcWH4FknTCzNr0Iy6ECqcqayTL6-fxF_kc_lGs8xlNmL5Qosx1UxOgTdPfGjR_dyrcuNzQ",
-                "__v" : 0
-            };
-            console.log("the tokens: ", tokens);
+        tokens = {
+            "_id": ObjectId("565dfa5d2ecc35b32cf7162f"),
+            //"access_token" : "ya29.PQKCMYNkZjE1V_C36HlrpLC829yd6bUUlfVQ5Q_vaCfSeFpDwsrvZHgwLTs8rM87u_TDuQ",
+            "access_token": "ya29.QgKCB8ANh_LGZkbzyjuJ5GFlyLo-1_H8tSFakgFsUnKGsqkimpTIoawqwoUib1Zl2re_gQ",
+            "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImUzZGQzYTZmOGQ0MjlkMWMwNmNlNjAxOTliZmZkZDBiYWI0ZGUzNGUifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXRfaGFzaCI6IjlvYTZ6YVpoMUV1TXFCV3A4bC1MNWciLCJhdWQiOiIxMDE0NTQ1MjUxOTAwLWFuYWIyMGhrZ2ljYjMwZ3BzZ3U3cTd2YjQ3cG5yMzI2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE3MDMzNjE0NjA2OTIwNDM1MDc5IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF6cCI6IjEwMTQ1NDUyNTE5MDAtYW5hYjIwaGtnaWNiMzBncHNndTdxN3ZiNDdwbnIzMjYuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJlbWFpbCI6InBhemltbWVsQGdtYWlsLmNvbSIsImlhdCI6MTQ0ODk5OTUxMiwiZXhwIjoxNDQ5MDAzMTEyfQ.ue1s6JWo58hJ6A9UPb8sFu87wZMpWTbCkyPgAzj2gf0e_TSNuZXklbmIs_A3ofWnUUnSTWCSDjV2verIJXWU3dYJ03l7HvmBm-zhSPT9dVxS26EXnAXB8Sq1awQhULYkExXbWCtlsRrHdc2L08j30usNR1hbOu5Mz8lnb35WgkyuQdkPSg0euqrICfUaklzg75q03Z9_6K9i8wAZ7Om6FS0-z1aA6nk0aiShD0R8Bgm6IgoCP1nKs8DUHAF0wdWeo0VWE_wGXd_I84EzzcWH4FknTCzNr0Iy6ECqcqayTL6-fxF_kc_lGs8xlNmL5Qosx1UxOgTdPfGjR_dyrcuNzQ",
+            "__v": 0
+        };
+        console.log("the tokens: ", tokens);
         //});
 
         //var promise2 = promise1.then(function() {
         //    console.log("before set credentials");
-            //oauth2Client.checkAuth(tokens, function(err, resp){
-            //    if (err) console.log("Error :", err);
-            //    console.log("the response from getToken ",resp)
-            //});
-            //console.log("teh request ",request);
-            //request.get("http://www.google.com", function(err,response, body){
-            //    if (err) console.log(err);
-            //    console.log("the body ",body);
-            //    console.log("the response ",response);
-            //});
+        //oauth2Client.checkAuth(tokens, function(err, resp){
+        //    if (err) console.log("Error :", err);
+        //    console.log("the response from getToken ",resp)
+        //});
+        //console.log("teh request ",request);
+        //request.get("http://www.google.com", function(err,response, body){
+        //    if (err) console.log(err);
+        //    console.log("the body ",body);
+        //    console.log("the response ",response);
+        //});
         var promise2 =
-            request.post({url:'https://www.googleapis.com/oauth2/v3/token', form: {refresh_token: tokens.refresh_token, client_id: CLIENT_ID, client_secret: CLIENT_SECRET, grant_type: 'refresh_token'}},
-                function (err,response,body) {
-                    if(err) console.log("error:", err);
+            request.post({
+                    url: 'https://www.googleapis.com/oauth2/v3/token',
+                    form: {
+                        refresh_token: tokens.refresh_token,
+                        client_id: CLIENT_ID,
+                        client_secret: CLIENT_SECRET,
+                        grant_type: 'refresh_token'
+                    }
+                },
+                function (err, response, body) {
+                    if (err) console.log("error:", err);
                     console.log("the body ", body);
                     //console.log("body['access_token']" ,body.access_token);
                     authToday = body;
@@ -103,41 +93,42 @@ var update = function() {
             oauth2Client.setCredentials({
                 access_token: authToday,
                 id_token: tokens.id_token,
-                refresh_token:tokens.refresh_token
+                refresh_token: tokens.refresh_token
             })
         );
 
-        var promise4 = promise3.then(function(){
-            console.log("after setCredentials ",oauth2Client.credentials);
-                schema.Calendar.find({}, function (err, data) {
-                    if (err) console.log("Error: ", err);
-                    calendarData = data;
-                    console.log("in Calendarfind ", calendarData);
+        var promise4 = promise3.then(function () {
+            console.log("after setCredentials ", oauth2Client.credentials);
+            schema.Calendar.find({}, function (err, data) {
+                if (err) console.log("Error: ", err);
+                calendarData = data;
+                console.log("in Calendarfind ", calendarData);
 
-                    //getEvents(oauth2Client,calendarData);
-                    //getEvents();
-                });
+                //getEvents(oauth2Client,calendarData);
+                //getEvents();
             });
-        promise4.then(schema.Reminder.find({},function(err, data){
-            if (err) console.log("error :",err);
+        });
+        promise4.then(schema.Reminder.find({}, function (err, data) {
+            if (err) console.log("error :", err);
             reminders = data;
             console.log("in reminderFind ", reminders);
-            getEvents(oauth2Client,calendarData);
+            getEvents(oauth2Client, calendarData);
 
         }));
-            //console.log("after setCredentials ", oauth2Client.credentials);
+        //console.log("after setCredentials ", oauth2Client.credentials);
 
-            //schema.Reminder.findById('565dfa5c2ecc35b32cf7162e', function (err, data) {
-            //    if (err) console.log("Error: ", err);
-            //    reminders = data;
-            //    console.log("in Reminderfind ", reminders);
-            //});
+        //schema.Reminder.findById('565dfa5c2ecc35b32cf7162e', function (err, data) {
+        //    if (err) console.log("Error: ", err);
+        //    reminders = data;
+        //    console.log("in Reminderfind ", reminders);
+        //});
 
     };
-    function getEvents(auth,cal) {
+
+    function getEvents(auth, cal) {
         console.log("in get events");
         calendar.events.list({
-            auth:auth,
+            auth: auth,
             calendarId: cal.id,
             timeMin: (new Date()).toISOString(),
             maxResults: 10,
@@ -163,79 +154,81 @@ var update = function() {
                 //    var id = event.id;
                 //    var attendees = event.attendees;
                 //    console.log(id, '%s - %s', start, event.summary, attendees);
-                    //var game = events[0];
-                    //var gameTime = game.start.dateTime;
-                    //var today = new Date();
-                    //var startDate = new Date(gameTime);
-                    //console.log("today day ", today.getDay());
-                    //console.log("startDate ", startDate.getDay());
-                }
+                //var game = events[0];
+                //var gameTime = game.start.dateTime;
+                //var today = new Date();
+                //var startDate = new Date(gameTime);
+                //console.log("today day ", today.getDay());
+                //console.log("startDate ", startDate.getDay());
+            }
 
             return true;
         });
     }
+
     accessDatabase();
+};
 
+    function checkEvent(game, cal, auth) {
+        var today = new Date();
+        var gameTime = game.start.dateTime;
+        var gameDate = new Date(gameTime);
+        var gameDay = gameDate.getDay();
+        var todayDay = today.getDay();
+        gameDay -= todayDay;
+        todayDay -= todayDay;
 
-function checkEvent (game, cal, auth){
-    var today = new Date();
-    var gameTime = game.start.dateTime;
-    var gameDate = new Date(gameTime);
-    var gameDay = gameDate.getDay();
-    var todayDay = today.getDay();
-    gameDay -= todayDay;
-    todayDay -= todayDay;
-
-    console.log("todayDay ",todayDay);
-    console.log("gameDay ",gameDay);
-    if (gameDay > 0){
-        if (gameDay <=reminders.second_reminder) {
-            console.log("doing the second reminder");
-            reminder(game, cal, auth);
-        } else if (gameDay<=reminders.first_reminder) {
-            console.log("doing the first reminder");
-            reminder(game, cal, auth);
+        console.log("todayDay ", todayDay);
+        console.log("gameDay ", gameDay);
+        if (gameDay > 0) {
+            if (gameDay <= reminders.second_reminder) {
+                console.log("doing the second reminder");
+                reminder(game, cal, auth);
+            } else if (gameDay <= reminders.first_reminder) {
+                console.log("doing the first reminder");
+                reminder(game, cal, auth);
+            }
+            if (gameDay <= reminders.attendance_reminder) {
+                console.log("doing the attendance reminder");
+                reminder(game, cal, auth);
+            }
         }
-        if(gameDay <=reminders.attendance_reminder){
-            console.log("doing the attendance reminder");
-            reminder(game, cal, auth);
-        }
+
+
+    }
+
+    function reminder(game, cal, auth) {
+        console.log("in reminder function");
+        var calendar = google.calendar('v3');
+        calendar.events.update({
+            auth: auth,
+            calendarId: cal.id,
+            eventId: game.id,
+            sendNotifications: true,
+            resource: {
+                start: {
+                    dateTime: game.start.dateTime
+                },
+                end: {
+                    dateTime: game.end.dateTime
+                },
+                summary: "Game coming soon",
+                attendees: game.attendees,
+                //description: "Make sure to RSVP if you haven't. Look forward to seeing y'all there",
+                description: "isolated test"
+            }
+        }, function (err, response) {
+                if (err) {
+                    console.log('The API returned an error: ' + err);
+                    return err;
+                } else {
+                    console.log(response);
+                    return true;
+                }
+        })
     }
 
 
-
-
-}
-
-function reminder(game, cal, auth) {
-    console.log("in reminder function");
-    var calendar = google.calendar('v3');
-    calendar.events.update({
-        auth: auth,
-        calendarId: cal.id,
-        eventId: game.id,
-        sendNotifications: true,
-        resource: {
-            start: {
-                dateTime:game.start.dateTime
-            },
-            end: {
-                dateTime:game.end.dateTime
-            },
-            summary: "Game coming soon",
-            attendees: game.attendees,
-            description: "Make sure to RSVP if you haven't. Look forward to seeing y'all there"
-        }
-    }, function(err, response){
-        if (err) {
-            console.log('The API returned an error: ' + err);
-            return err;
-        } else {
-            console.log(response);
-            return true;
-        }
-    })
-}
 update();
 
 //function attendanceReminder(game,auth,cal){
@@ -299,7 +292,7 @@ update();
     //    "__v" : 0
     //};
 
-};
+
 
 //function getEvents(auth, cal) {
 //    console.log("in get events");
@@ -366,3 +359,23 @@ update();
 //        console.log("the body ", body);
 //    return body;
 //    });
+//request.post({url:'http://service.com/upload', form: {key:'value'}}, function(err,httpResponse,body){ /* ... */ })
+//request.post({url:'https://www.googleapis.com/oauth2/v3/token'},
+//    {refresh_token:tokens.refresh_token, client_id: CLIENT_ID, client_secret: CLIENT_SECRET, grant_type:refresh_token}, function(err,response,body){
+//        console.log("the response ",response);
+//        console.log("the body ", body);
+//    });
+//mongoose.model('AuthTokens', new Schema({"access_token": String, "refresh_token": String, "id_token": String}, {collection: 'authtokens'}, {autoIndex: false}));
+//var AuthTokens = mongoose.model('AuthTokens');
+//
+//mongoose.model('Reminder', new Schema({"first_reminder": Number, "second_reminder": Number, "attendance_reminder": Number, "calendarId": String},
+//    {collection: "reminder"}, {autoIndex: false}));
+//var Reminder = mongoose.model('Reminder');
+
+
+
+//var accessDatabase = function(){
+//console.log("before Authtokens");
+//mongoDB calls not working here//
+//AuthTokens.find({}, function(err,data){
+// console.log("hi");
