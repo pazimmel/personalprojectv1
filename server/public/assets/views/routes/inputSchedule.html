@@ -14,14 +14,14 @@
 
     <form id = "scheduleInput" layout = "row" class = "centered-schedule" layout-align="center">
         <div class = "new-calendar" layout-align="left">
-            <h1>Create New Calendar</h1>
+            <h1>Create New Schedule</h1>
             <md-input-container class = "new-calendar-input">
                 <!--<div class = "create-calendar" layout="row">-->
-                <label>Calendar Name</label>
+                <label>Schedule Name</label>
                 <input type = "text" ng-model="newCalendar.summary">
                 <!--</div>-->
             </md-input-container>
-            <md-button class="md-raised buttons" ng-click = createCalendar()>Create New Calendar</md-button>
+            <md-button class="md-raised md-primary" ng-click = createCalendar()>Create New Calendar</md-button>
         </div>
 
 
@@ -46,9 +46,9 @@
                 </md-input-container>
             </div>
             <div class = "submit-buttons">
-                <md-button class="md-raised buttons" ng-click = "inputGame(newGame)">Submit Game</md-button>
+                <md-button class="md-raised md-primary" ng-click = "inputGame(newGame)">Submit Game</md-button>
                 <!--<input type = "submit" value = "submit" ng-click = "inputGame(newGame)">-->
-                <md-button class="md-raised buttons" ng-click = "scheduleComplete()">Schedule Complete</md-button>
+                <md-button class="md-raised md-primary" ng-click = "scheduleComplete()">Schedule Complete</md-button>
                 <!--<input type = "submit" value = "Schedule Complete" ng-click = "scheduleComplete()">-->
             </div>
         </div>

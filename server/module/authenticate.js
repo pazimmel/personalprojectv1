@@ -11,7 +11,7 @@ var authenticate = function(code) {
     var CLIENT_ID = "1014545251900-anab20hkgicb30gpsgu7q7vb47pnr326.apps.googleusercontent.com";
     var CLIENT_SECRET = "JnNWn1zLSVLf4kZwwE2XR1eY";
     console.log("in authenticate");
-    var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, "http://localhost:5000");
+    var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, "http://localhost:5000" || "https://whispering-shelf-5691.herokuapp.com");
     //var oauth2 = new google.OAuth2(CLIENT_ID, CLIENT_SECRET, 'code')
 
         //OAuth2.setCredentials({
@@ -54,10 +54,11 @@ var authenticate = function(code) {
         }
     });
 
-        function listEvents(auth) {
+        function listEvents(auth,cal) {
             calendar.events.list({
                 auth:auth,
                 calendarId: 'vmte39c86sbcmh9fqr58iglsuo@group.calendar.google.com',
+                //calendarId: cal.id,
                 timeMin: (new Date()).toISOString(),
                 maxResults: 10,
                 singleEvents: true,

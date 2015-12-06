@@ -60,14 +60,33 @@ router.route('/calendar')
             res.send(data);
         });
     });
-router.route('/reminder')
+
+router.route('/reminder/init')
+    .get(function(req, res){
+        schema.Reminder.find({}, function(err,data){
+            if(err) console.log(err);
+            res.send(data);
+        });
+    })
     .post(function(req,res){
         var reminder = req.body;
-        reminder = new schema.Reminder({first_reminder: reminder.first_reminder, second_reminder: reminder.second_reminder, attendance_reminder: reminder.attendance_reminder, calendarId: reminder.calendarId});
+        reminder = new schema.Reminder({first_reminder: reminder.first_reminder, second_reminder: reminder.second_reminder,
+            attendance_reminder: reminder.attendance_reminder, calendarId: reminder.calendarId});
+
         reminder.save(function(err,data){
             if(err) console.log("Error ", err);
             res.send(data);
         });
 
+    });
+router.route('/reminder/update')
+    .post(function(req,res){
+        var reminder = req.body;
+        schema.Reminder.findOneAndUpdate({calendarId:reminder.calendarId},
+            {first_reminder: reminder.first_reminder, second_reminder: reminder.second_reminder, attendance_reminder: reminder.attendance_reminder},
+            function(err,data){
+                if(err) console.log("Error :",err);
+                res.send(data);
+            });
     });
 module.exports = router;

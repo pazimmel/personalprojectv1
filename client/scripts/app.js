@@ -27,7 +27,7 @@ myApp.run(['GAuth', 'GApi', "$location",
 
     }]);
 
-myApp.config(['$routeProvider', function ($routeProvider) {
+myApp.config(['$routeProvider', '$mdThemingProvider', function ($routeProvider, $mdThemingProvider) {
     //$routeProvider
     //    .otherwise('/login');
     //googleClientProvider
@@ -85,6 +85,15 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             controller: "inputEmailSettingsController"
         })
         .otherwise('/login');
+
+    var darkPurpleMap = $mdThemingProvider.extendPalette('deep-purple', {
+        '500': '6A3052'
+    });
+    // Register the new color palette map with the name <code>neonRed</code>
+    $mdThemingProvider.definePalette('dark-purple', darkPurpleMap);
+    // Use that theme for the primary intentions
+    $mdThemingProvider.theme('default')
+        .primaryPalette('dark-purple');
 }]);
 
 myApp.service("ManagerService", ["$http", "GApi", function($http,GApi){

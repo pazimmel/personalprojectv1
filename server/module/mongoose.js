@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 
 // Mongo Connection //
-var mongoURI = "mongodb://localhost:27017/team_manager";
+//var mongoURI = "mongodb://localhost:27017/team_manager";
+var mongoURI = "mongodb://admin:Goatsucker81@ds061464.mongolab.com:61464/teammanagerz";
 //var mongoURI = "";
 
 var mongoDB = mongoose.connect(mongoURI).connection;

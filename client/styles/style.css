@@ -1,19 +1,19 @@
-.clearfix:after {
-    visibility: hidden;
-    display: block;
-    font-size: 0;
-    content: " ";
-    clear: both;
-    height: 0;
-}
-.clearfix { display: inline-block; }
-/* start commented backslash hack \*/
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
+/*.clearfix:after {*/
+    /*visibility: hidden;*/
+    /*display: block;*/
+    /*font-size: 0;*/
+    /*content: " ";*/
+    /*clear: both;*/
+    /*height: 0;*/
+/*}*/
+/*.clearfix { display: inline-block; }*/
+/*/!* start commented backslash hack \*!/*/
+/** html .clearfix { height: 1%; }*/
+/*.clearfix { display: block; }*/
 /* close commented backslash hack */
 
-body {
-    background-color: #6AC3C7;
+body, html {
+    background: #6AC3C7;
 }
 .main-nav-headers {
     background-color: #F04C40;
@@ -71,9 +71,12 @@ span.buttonText {
     /* Use the Roboto font that is loaded in the <head> */
     font-family: 'Roboto', sans-serif;
 }
+ul {
+    padding-left: 0;
+}
 li {
     list-style-type: none;
-    margin-left:10px
+    padding:0 20px;
 }
 a {
     text-decoration: none;
@@ -87,10 +90,10 @@ a:hover{
 h1 {
     text-align: center;
 }
-.a.md-button.md-default-theme.md-raised, a.md-button.md-raised, .md-button.md-default-theme.md-raised, .md-button.md-raised {
-    background-color: #6A3052;
-    color: whitesmoke;
-}
+/*.custom-buttons {*/
+    /*background-color: #6A3052;*/
+    /*color: whitesmoke;*/
+/*}*/
 .image-thumbnail{
     /*display: inline-block;*/
     /*float:left;*/
@@ -100,7 +103,7 @@ md-toolbar.md-default-theme.md-menu-toolbar, md-toolbar.md-menu-toolbar {
 }
 .main-nav {
 
-    width:350px;
+    width:100%;
     text-align: center;
     background-color: transparent;
 }
@@ -171,6 +174,7 @@ md-radio-button.md-default-theme, md-radio-button .md-on {
     width:800px;
     height: auto;
     text-align: center;
+    background-color: whitesmoke;
     box-shadow: 3px 3px 5px 6px #003058;
 }
 
@@ -187,7 +191,7 @@ md-radio-button.md-default-theme, md-radio-button .md-on {
 }
 
 .create-schedule {
-    width:380px;
+    width:430px;
     margin-left: 20px;
     border: 1px solid;
     box-sizing: border-box;
@@ -195,7 +199,7 @@ md-radio-button.md-default-theme, md-radio-button .md-on {
     box-shadow: 3px 3px 5px 6px #003058;
 }
 .new-game-input {
-    width: 200px;
+    width: 230px;
     margin-left: 5px;
 }
 .new-calendar-input {

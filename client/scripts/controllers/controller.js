@@ -66,7 +66,7 @@ myApp.controller("loginController", ["$scope", "$http", "GAuth", '$location', fu
 ////////////////////////////
 myApp.controller('NavController', ['$scope','$location', function($scope, $location){
     $scope.isActive = function (viewLocation) {
-        console.log("in the isActive function ", $location.path());
+        //console.log("in the isActive function ", $location.path());
         return viewLocation === $location.path();
     };
 
@@ -125,13 +125,15 @@ myApp.controller("attendanceController", ["$scope", "$http", "ManagerService", "
                 //for(var i = 0; i<$scope.currentCalendars.length; i ++){
                 //    $scope.compareArray.push({i:$scope.currentCalendars[i].start.dateTime});
                 //}
-
                 $scope.selectedCalendar.calendar = $scope.currentCalendars[0];
+
+                $scope.managerService.setCalendarId($scope.selectedCalendar.calendar.id);
+
                 $scope.getEvents($scope.currentCalendars[0]);
 
             }
 
-
+            //ds061464.mongolab.com:61464/teammanagerz
 
             return $scope.currentCalendars;
         });
@@ -536,54 +538,81 @@ myApp.controller("inputEmailSettingsController", ["$scope", "$http", "$window", 
         attendance_reminder: 2
     };
     $scope.calendarSettings = {};
-    $scope.emailTeam = [
-        {name: "Team", type: "team"},
-        {name: "Players", type: "player"},
-        {name: "Subs", type: "sub"}
-    ];
-    $scope.email = {};
+    //$scope.emailTeam = [
+    //    {name: "Team", type: "team"},
+    //    {name: "Players", type: "player"},
+    //    {name: "Subs", type: "sub"}
+    //];
+    //$scope.email = {};
     $scope.managerService = ManagerService;
 
-    $scope.emailSelected = function(selection){
-        //console.log(selection.type);
-        $scope.managerService.retrieveTeam().then(function() {
-            $scope.email.playerArray = $scope.managerService.displayTeam();
-            $scope.email.type = selection.type;
-            $scope.filterPlayerEmails(selection.type);
-        });
-    };
-    $scope.filterPlayerEmails = function(type){
-        $scope.email.selected = [];
-        for (var i = 0; i<$scope.email.playerArray.length; i++){
-            if(type === "team"){
-                $scope.email.selected.push($scope.email.playerArray[i].email);
-            } else if($scope.email.playerArray[i].type === type) {
-                $scope.email.selected.push($scope.email.playerArray[i].email);
-            }
-        }
-        console.log($scope.email.selected);
-    };
-    $scope.writeEmail = function(addresses){
-        GApi.executeAuth("email, ")
-    };
+    //$scope.emailSelected = function(selection){
+    //    //console.log(selection.type);
+    //    $scope.managerService.retrieveTeam().then(function() {
+    //        $scope.email.playerArray = $scope.managerService.displayTeam();
+    //        $scope.email.type = selection.type;
+    //        $scope.filterPlayerEmails(selection.type);
+    //    });
+    //};
+    //$scope.filterPlayerEmails = function(type){
+    //    $scope.email.selected = [];
+    //    for (var i = 0; i<$scope.email.playerArray.length; i++){
+    //        if(type === "team"){
+    //            $scope.email.selected.push($scope.email.playerArray[i].email);
+    //        } else if($scope.email.playerArray[i].type === type) {
+    //            $scope.email.selected.push($scope.email.playerArray[i].email);
+    //        }
+    //    }
+    //    console.log($scope.email.selected);
+    //};
+    //$scope.writeEmail = function(addresses){
+    //    GApi.executeAuth("email, ")
+    //};
     $scope.inputEmailSettings= function(settings){
         $scope.calendarSettings = settings;
         $scope.calendarSettings.calendarId = $scope.managerService.getCalendarId();
         console.log($scope.calendarSettings);
-        $scope.postEmailSettings();
+        $scope.updateEmailSettings();
 
         $scope.emailSettingsComplete();
         console.log("end of emailSettings");
     };
-    $scope.postEmailSettings = function(){
-        $http.post('/team/reminder', $scope.calendarSettings).then(function(resp){
-            console.log(resp);
+    $scope.getEmailSettings = function(){
+        $http.get("team/reminder/init").then(function(resp){
+            console.log(resp.data[0]);
+
+            if (!resp.data[0]){
+                $scope.initEmailSettings($scope.reminders);
+            } else {
+                $scope.reminders = resp.data[0];
+            }
+
+
+
+        });
+    };
+    $scope.initEmailSettings = function(settings){
+        $scope.calendarSettings = settings;
+        console.log("the settings ",settings);
+        console.log("managerService.getCalendarId ",$scope.managerService.getCalendarId());
+        $scope.calendarSettings.calendarId = $scope.managerService.getCalendarId();
+        $http.post('/team/reminder/init', $scope.calendarSettings).then(function(resp){
+            console.log("initializing the email settings, ",resp);
             //$scope.setOfflineAccess();
             return $scope.calendarSettings;
         },function(){
             console.log("error");
         });
     };
+    $scope.updateEmailSettings = function(){
+        $http.post('/team/reminder/update', $scope.calendarSettings).then(function(resp) {
+            console.log("email settings updated :", resp);
+            return $scope.calendarSettings;
+        },function(){
+            console.log("error");
+        });
+    };
+
     $scope.setOfflineAccess = function(){
         console.log("click offlineAccess");
         //if you lose refresh token, need to change approval_prompt to force
@@ -623,8 +652,8 @@ myApp.controller("inputEmailSettingsController", ["$scope", "$http", "$window", 
             $window.alert("Hey there! You haven't completed setting up. Make sure you have clicked the appropriate 'Complete' button on each page");
         }
     };
-
-
+    $scope.getEmailSettings();
+    //$scope.initEmailSettings($scope.reminders);
 }]);
 
     //$scope.testSchedule = function() {
