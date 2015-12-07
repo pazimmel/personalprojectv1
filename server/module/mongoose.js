@@ -2,8 +2,10 @@ var mongoose = require('mongoose');
 
 
 // Mongo Connection //
+//var mongoURI = "mongodb://localhost:27017/team_manager";
 //|| "mongodb://localhost:27017/team_manager"
-var mongoURI = process.env.MONGOLAB_URI ;
+var mongoURI = "mongodb://admin:Goatsucker81@ds061464.mongolab.com:61464/teammanagerz";
+//var mongoURI = process.env.MONGOLAB_URI ;
 
 
 
@@ -20,3 +22,5 @@ mongoDB.on('error', function(err){
 
 module.exports.mongoDB = mongoDB;
 module.exports.mongoURI = mongoURI;
+
+//ds061464.mongolab.com:61464/teammanagerz -u <dbuser> -p <dbpassword>
