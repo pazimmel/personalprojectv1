@@ -71,50 +71,52 @@ var update = function() {
         //    console.log("the body ",body);
         //    console.log("the response ",response);
         //});
-        var promise2 =
-            request.post({
-                    url: 'https://www.googleapis.com/oauth2/v3/token',
-                    form: {
-                        refresh_token: tokens.refresh_token,
-                        client_id: CLIENT_ID,
-                        client_secret: CLIENT_SECRET,
-                        grant_type: 'refresh_token'
-                    }
-                },
-                function (err, response, body) {
-                    if (err) console.log("error:", err);
-                    console.log("the body ", body);
-                    //console.log("body['access_token']" ,body.access_token);
-                    authToday = body;
-                    //console.log("the response", response);
+
+        request.post({
+                url: 'https://www.googleapis.com/oauth2/v3/token',
+                form: {
+                    refresh_token: tokens.refresh_token,
+                    client_id: CLIENT_ID,
+                    client_secret: CLIENT_SECRET,
+                    grant_type: 'refresh_token'
+                }
+            },
+            function (err, response, body) {
+                if (err) console.log("error:", err);
+                console.log("the body ", body);
+                //console.log("body['access_token']" ,body.access_token);
+                authToday = body;
+                oauth2Client.setCredentials({
+                    access_token: authToday,
+                    id_token: tokens.id_token,
+                    refresh_token: tokens.refresh_token
                 });
 
-        var promise3 = promise2.then(
-            oauth2Client.setCredentials({
-                access_token: authToday,
-                id_token: tokens.id_token,
-                refresh_token: tokens.refresh_token
-            })
-        );
+                var promise4 =
+                    console.log("after setCredentials ", oauth2Client.credentials);
+                schema.Calendar.find({}, function (err, data) {
+                    if (err) console.log("Error: ", err);
+                    calendarData = data;
+                    console.log("in Calendarfind ", calendarData);
 
-        var promise4 = promise3.then(function () {
-            console.log("after setCredentials ", oauth2Client.credentials);
-            schema.Calendar.find({}, function (err, data) {
-                if (err) console.log("Error: ", err);
-                calendarData = data;
-                console.log("in Calendarfind ", calendarData);
+                    //getEvents(oauth2Client,calendarData);
+                    //getEvents();
+                });
+                promise4.then(schema.Reminder.find({}, function (err, data) {
+                    if (err) console.log("error :", err);
+                    reminders = data;
+                    console.log("in reminderFind ", reminders);
+                    getEvents(oauth2Client, calendarData);
 
-                //getEvents(oauth2Client,calendarData);
-                //getEvents();
+                }));
+                //console.log("the response", response);
             });
-        });
-        promise4.then(schema.Reminder.find({}, function (err, data) {
-            if (err) console.log("error :", err);
-            reminders = data;
-            console.log("in reminderFind ", reminders);
-            getEvents(oauth2Client, calendarData);
+    };
 
-        }));
+
+
+
+
         //console.log("after setCredentials ", oauth2Client.credentials);
 
         //schema.Reminder.findById('565dfa5c2ecc35b32cf7162e', function (err, data) {
@@ -123,7 +125,7 @@ var update = function() {
         //    console.log("in Reminderfind ", reminders);
         //});
 
-    };
+
 
     function getEvents(auth, cal) {
         console.log("in get events");
