@@ -296,6 +296,7 @@ myApp.controller("inputTeamController", ["$scope", "$http", "ManagerService", "G
         $scope.managerService.retrieveTeam().then(function() {
             $scope.playerArray = $scope.managerService.displayTeam();
             $scope.gridOptions.data = $scope.playerArray;
+            console.log($scope.playerArray);
         });
     };
     $scope.deletePlayer= function(row){

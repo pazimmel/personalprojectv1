@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 
 
 // Mongo Connection //
-
-var mongoURI = process.env.MONGOLAB_URI || "mongodb://localhost:27017/team_manager" ;
+//|| "mongodb://localhost:27017/team_manager"
+var mongoURI = process.env.MONGOLAB_URI ;
 
 
 
